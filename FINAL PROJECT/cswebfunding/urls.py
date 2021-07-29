@@ -10,5 +10,5 @@ urlpatterns = [
     path("register", views.register, name="register"),
 
     # API PATHS
-    path("addfunds/<int:amount>", views.addfunds, name="addfunds"),
+    path("addfunds/<str:amount>", views.addfunds, name="addfunds"),
 ]

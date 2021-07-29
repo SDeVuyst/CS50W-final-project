@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
+from decimal import Decimal
+
 from .models import User
 
 
@@ -65,7 +67,8 @@ def register(request):
 
 # API ROUTES
 def addfunds(request, amount):
-
+    # Convert amount from string to decimal
+    amount = Decimal(amount)
     # Add amount to users current balance
     user = request.user
     user.balance = user.balance + amount
