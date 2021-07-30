@@ -78,18 +78,30 @@ def addfunds(request, amount):
 
 
 def newlisting(request):
+    # Go to newlisting Page
     if request.method == "GET":
         return render(request, "cswebfunding/newlisting.html")
 
+    # Register a new listing
     elif request.method == "POST":
-        # TODO: errorcheck
+
         # Get all the info needed and create a new listing
+        if request.POST["category"] == "project":
+            project = 1
+            goodcause = 0
+        elif request.POST["category"] == "goodcause":
+            project = 0
+            goodcause = 1
+        else:
+            print("Error")
+            return render(request, "cswebfunding/index.html")
+        
         listing = Listing(
             title = request.POST["title"],
             description = request.POST["description"],
             author = request.user,
-            project = request.POST["project"],
-            goodcause = request.POST["goodcause"],
+            project = project,
+            goodcause = goodcause,
             goal = request.POST["goal"],
             final_date = request.POST["final_date"]
         )

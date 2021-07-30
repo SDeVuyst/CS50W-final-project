@@ -2,36 +2,36 @@
 
 {% block body %}
 <h2>Create listing page</h2>
-<form action="{% url 'newlisting' %}" method="post">
+<form action="{% url 'newlisting' %}" method="post" id="newlistingform">
     {% csrf_token %}
     <!-- Title input -->
     <div class="form-group">
-        <input autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
+        <input required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
     </div>
     <!-- Description input -->
     <div class="form-group">
-        <input autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
+        <input required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
     </div>
     <!-- Category input -->
-    <div class="form-group">
+    <div required class="form-group">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="goodcause" id="good_cause" value=1>
+            <input class="form-check-input" type="radio" name="category" id="good_cause" value="goodcause">
             <label class="form-check-label" for="good_cause">Good Cause</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="project" id="project" value=1>
+            <input class="form-check-input" type="radio" name="category" id="project" value="project">
             <label class="form-check-label" for="project">Project</label>
         </div>
     </div>
     <!-- Goal input -->
     <div class="form-group">
-        <input autocomplete="off" class="form-control" type="number" name="goal" placeholder="Goal in $">
+        <input required autocomplete="off" class="form-control" type="number" name="goal" placeholder="Goal in $">
     </div>
     <!--TODO Main image input -->
     
     <!-- Final date input -->
     <div class="form-group">
-        <input class="form-control" type="datetime-local" name="final_date">
+        <input onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="datetime-local" name="final_date" id="datefield">
     </div>
     
     <!-- Submit button -->

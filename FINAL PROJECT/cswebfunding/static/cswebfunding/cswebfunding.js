@@ -45,15 +45,37 @@ function addfunds () {
         modalmessage("You must specify a value!");
         
     }
-}
+};
 
 
 function hidemodalmessage () {
     document.getElementById("modalmessagediv").hidden = true;
-}
+};
 
 
 function modalmessage (message) {
     document.getElementById("modalmessagediv").hidden= false;
     document.getElementById("modalmessage").innerHTML = message;
-}
+};
+
+function setdatelisting () {
+    // Date to specify must be later than todays date for newlisting
+    // Slightly edited from https://www.codegrepper.com/code-examples/html/datetime-local+min+today
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+
+    if(dd<10){
+    dd='0'+dd
+    } 
+    if(mm<10){
+    mm='0'+mm
+    } 
+
+    today = yyyy+'-'+mm+'-'+dd+'T'+hours+':'+minutes;
+    document.getElementById("datefield").setAttribute("min", today);
+    console.log(`set min to ${today}`)
+};
