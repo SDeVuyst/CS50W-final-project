@@ -7,7 +7,12 @@ class User(AbstractUser):
    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
 class Listing(models.Model):
+   title = models.CharField(max_length=50)
+   description = models.CharField(max_length=256)
    author = models.ForeignKey('User', on_delete=models.CASCADE)
-   category = models.BooleanField()
+   project = models.BooleanField()
+   goodcause = models.BooleanField()
    goal = models.PositiveIntegerField()
-   creation_date = models
+   amountbackers = models.PositiveIntegerField(default=0)
+   created_at = models.DateTimeField(auto_now_add=True)
+   final_date = models.DateTimeField()

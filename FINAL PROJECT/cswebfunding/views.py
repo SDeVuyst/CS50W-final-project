@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from decimal import Decimal
 
-from .models import User
+from .models import User, Listing
 
 
 def index(request):
@@ -75,3 +75,28 @@ def addfunds(request, amount):
     user.save()
   
     return JsonResponse({"Message": f"{request.user.username} added {amount} to their balance"}, status=200)
+
+
+def newlisting(request):
+    if request.method == "GET":
+        return render(request, "cswebfunding/newlisting.html")
+
+    elif request.method == "POST":
+        # TODO: errorcheck
+        # Get all the info needed and create a new listing
+        listing = Listing(
+            title = request.POST["title"],
+            description = request.POST["description"],
+            author = request.user,
+            project = request.POST["project"],
+            goodcause = request.POST["goodcause"],
+            goal = request.POST["goal"],
+            final_date = request.POST["final_date"]
+        )
+        
+        listing.save()
+
+        # Return to index page
+        return render(request, "cswebfunding/index.html")
+    else:
+        return render(request, "cswebfunding/index.html")

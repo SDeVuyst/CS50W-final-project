@@ -1,3 +1,4 @@
+
 function addfunds () {
 
     // Get amount and set up for converting to decimal in backend

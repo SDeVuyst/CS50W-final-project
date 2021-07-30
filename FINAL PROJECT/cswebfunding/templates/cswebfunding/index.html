@@ -2,7 +2,8 @@
 
 {% block body %}
 
-<p>TODO</p>
+<!-- Button redirect to newmodal page -->
+<a href="{% url 'newlisting' %}"><button class="btn btn-primary">New Listing</button></a>
 
 <!-- Button trigger modal to add funds -->
 <button onclick="hidemodalmessage()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundsModal">Add Funds</button>
