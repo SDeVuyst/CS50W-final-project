@@ -65,7 +65,7 @@ def register(request):
     else:
         return render(request, "cswebfunding/register.html")
 
-# API ROUTES
+
 def addfunds(request, amount):
     # Convert amount from string to decimal
     amount = Decimal(amount)

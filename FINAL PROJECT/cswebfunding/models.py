@@ -6,6 +6,7 @@ class User(AbstractUser):
    # Balance can be maximum 999,999.99
    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
+
 class Listing(models.Model):
    title = models.CharField(max_length=50)
    description = models.CharField(max_length=256)
@@ -15,4 +16,4 @@ class Listing(models.Model):
    goal = models.PositiveIntegerField()
    amountbackers = models.PositiveIntegerField(default=0)
    created_at = models.DateTimeField(auto_now_add=True)
-   final_date = models.DateTimeField()
+   final_date = models.DateField()

@@ -8,38 +8,93 @@
         <link href="{% static 'cswebfunding/styles.css' %}" rel="stylesheet">
         <meta charset=“UTF-8”>
         <script src="{% static 'cswebfunding/cswebfunding.js' %}"></script>
-        <link rel="shortcut icon" href="#">
+        <link rel="shortcut icon" href="{% url 'index' %}">
+
     </head>
     <body>
-        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'index' %}">cswebfunding</a>
-          
-            <div>
-              <ul class="navbar-nav mr-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">{{ user.username }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                    <li class="nav-link" id="balance">{{ user.balance }}</li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-              </ul>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <!-- Credit to https://www.flaticon.com/free-icon/heart_838618?term=donat&related_id=838618 -->
+                    <img src="/static/cswebfunding/heart.png" alt="logo" width="30" height="24">
+                    Cswebfunding
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'index' %}">{{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" onclick="hidemodalmessage()" data-bs-toggle="modal" data-bs-target="#fundsModal">Add funds</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text" id="balance">
+                        ${{ user.balance }}
+                    </span>
+
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
-          </nav>
+        </nav>
         
         <div class="body">
             {% block body %}
             {% endblock %}
+            <!-- Modal to add funds -->
+            <div class="modal fade" id="fundsModal" tabindex="-1" aria-labelledby="fundsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="fundsModalLabel">Add Funds</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div>
+                            <h6>Your current balance is ${{ user.balance }}</h6>
+                            <hr>
+                        </div>  
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input id="amount" type="text" class="form-control" autocomplete="off" aria-label="Amount">
+                        </div>
+
+                        <div id="modalmessagediv" hidden>
+                            <hr>
+                            <p id="modalmessage"></p>
+                        </div>
+                        
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addfunds()">Add funds</button>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>

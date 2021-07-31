@@ -5,43 +5,4 @@
 <!-- Button redirect to newmodal page -->
 <a href="{% url 'newlisting' %}"><button class="btn btn-primary">New Listing</button></a>
 
-<!-- Button trigger modal to add funds -->
-<button onclick="hidemodalmessage()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundsModal">Add Funds</button>
-  
-<!-- Modal to add funds -->
-<div class="modal fade" id="fundsModal" tabindex="-1" aria-labelledby="fundsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="fundsModalLabel">Add Funds</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-
-            <div class="input-group mb-3">
-              <span class="input-group-text">$</span>
-              <input id="amount" type="text" class="form-control" autocomplete="off" aria-label="Amount">
-            </div>
-
-            <div id="modalmessagediv" hidden>
-              <hr>
-              <p id="modalmessage"></p>
-            </div>
-            
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="addfunds()">Add funds</button>
-        </div>
-
-      </div>
-    </div>
-</div>
-
 {% endblock %}

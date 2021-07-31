@@ -2,6 +2,18 @@ body {
   margin: 10px;
 }
 
+a {
+  cursor: pointer
+}
+
+nav {
+  margin-bottom: 10px;
+}
+
 .form-group {
   margin: 10px;
+}
+
+.end {
+  align-content:right ;
 }
