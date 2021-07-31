@@ -3,7 +3,9 @@ function addfunds () {
 
     // Get amount and set up for converting to decimal in backend
     amount = document.getElementById('amount').value.replace(",", ".");
-    console.log(amount)
+    amount = parseFloat(amount);
+    amount = parseFloat((amount.toFixed(2)));
+
     if (amount) {
         // Check if input is number
         if (isNaN(amount)) {
@@ -32,8 +34,9 @@ function addfunds () {
 
                 // Asynchronously add balance for user
                 var balanceHTML = document.getElementById("balance");
-                var balance = parseFloat(balanceHTML.innerHTML);
-                balanceHTML.innerHTML = (balance + parseFloat(amount)).toFixed(2);
+                var balance = parseFloat(balanceHTML.innerHTML.replace('$', ''));
+                var newbal = balance + amount;
+                balanceHTML.innerHTML = `$${newbal}`;
             })
         }
 
@@ -58,24 +61,29 @@ function modalmessage (message) {
     document.getElementById("modalmessage").innerHTML = message;
 };
 
+
 function setdatelisting () {
     // Date to specify must be later than todays date for newlisting
     // Slightly edited from https://www.codegrepper.com/code-examples/html/datetime-local+min+today
     var today = new Date();
-    var dd = today.getDate();
+    var dd = today.getDate(); // Project must be open for at least a day
     var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
     var yyyy = today.getFullYear();
-    var hours = today.getHours();
-    var minutes = today.getMinutes();
 
     if(dd<10){
-    dd='0'+dd
+        dd='0'+dd
     } 
     if(mm<10){
-    mm='0'+mm
+        mm='0'+mm
     } 
 
-    today = yyyy+'-'+mm+'-'+dd+'T'+hours+':'+minutes;
-    document.getElementById("datefield").setAttribute("min", today);
-    console.log(`set min to ${today}`)
+    mindate = yyyy+'-'+mm+'-'+dd;
+    maxdate = yyyy+5 +'-'+mm+'-'+dd;
+
+    var element = document.getElementById("datefield");
+    element.setAttribute("min", mindate);
+    element.setAttribute("max", maxdate);
+
+    console.log(`set min to ${mindate} and maxdate to ${maxdate}`)
+
 };
