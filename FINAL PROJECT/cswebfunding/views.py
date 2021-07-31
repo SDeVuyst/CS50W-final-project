@@ -78,6 +78,7 @@ def addfunds(request, amount):
 
 
 def newlisting(request):
+
     # Go to newlisting Page
     if request.method == "GET":
         return render(request, "cswebfunding/newlisting.html")
@@ -112,3 +113,12 @@ def newlisting(request):
         return render(request, "cswebfunding/index.html")
     else:
         return render(request, "cswebfunding/index.html")
+
+
+def all_listings(request):
+    
+    listings = Listing.objects.all()
+
+    return render(request, "cswebfunding/all_listings.html", {
+        'listings': listings
+    })

@@ -15,5 +15,10 @@ nav {
 }
 
 .end {
-  align-content:right ;
+  align-content: right;
+}
+
+.col {
+  text-align: center;
+  border: solid 2px red;
 }
