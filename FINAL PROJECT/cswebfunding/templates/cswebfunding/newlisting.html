@@ -27,8 +27,10 @@
     <div class="form-group">
         <input required autocomplete="off" class="form-control" type="number" name="goal" placeholder="Goal in $">
     </div>
-    <!--TODO Main image input -->
-    
+    <!-- Main image input -->
+    <div class="form-group">
+        <input class="form-control" type="file" id="formFile" accept="image/*">
+      </div>
     <!-- Final date input starting from today and maximum 5 years from now-->
     <div class="form-group">
         <input onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date" id="datefield">

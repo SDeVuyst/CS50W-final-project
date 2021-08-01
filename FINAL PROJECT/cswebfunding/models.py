@@ -17,3 +17,4 @@ class Listing(models.Model):
    amountbackers = models.PositiveIntegerField(default=0)
    created_at = models.DateTimeField(auto_now_add=True)
    final_date = models.DateField()
+   photo = models.ImageField(upload_to='media/', default="default.jpg")
