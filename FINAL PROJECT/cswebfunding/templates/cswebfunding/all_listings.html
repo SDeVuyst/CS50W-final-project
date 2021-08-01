@@ -3,25 +3,32 @@
 {% block body %}
 
 <h3>All listings</h3>
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col">
-          {% for listing in listings %}
-            <img src="{{ listing.photo.url }}" height="300px" width="300px">
-          {% endfor %}
-        </div>
-        <div class="col">
-          {% for listing in listings %}
-            <img src="{{ listing.photo.url }}" height="300px" width="300px">
-          {% endfor %}
-        </div>
-        <div class="col">
-          {% for listing in listings %}
-            <img src="{{ listing.photo.url }}" height="300px" width="300px">
-          {% endfor %}
-        </div>
-    </div>
-</div>
 
+<!-- inspired on https://bootsnipp.com/20snippets/01pbj -->
+
+<!-- TODO: display author, project/goodcause, amountbackers, fix photo -->
+<div class="container mb-4">
+  <div class="row">
+    {% for listing in listings %}
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
+          <div class="card shadow">
+              <div class="card-body text-center">
+                <h4>{{ listing.title }}</h4>
+                <a href="#">
+                    <img class="card-img-top" src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+                </a>
+                <ul class="list-inline mt-3">
+                    <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>
+                </ul>
+                <hr>
+                <p>{% widthratio listing.donated listing.goal 100 %}% donated</p>
+                <p class="lead">{{ listing.description }}</p>
+                <a class="btn btn-outline-dark my-2" href="#" role="button">Read more...</a>
+              </div>
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
