@@ -22,3 +22,39 @@ nav {
   text-align: center;
   border: solid 2px red;
 }
+
+.navbar-brand {
+  margin-right: 65px;
+}
+
+.nav-item {
+  margin-right: 10px;
+}
+
+/* based on https://stackoverflow.com/questions/39495493/line-under-navbar-when-hovering */
+.nav-link {
+  color: #d20807;
+  float: left;
+  position: relative;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  background-color: #d20807;
+  content: "";
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  transition: width 0.35s ease 0s;
+  position: absolute;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#center {
+  text-align: center;
+}
