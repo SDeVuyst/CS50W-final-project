@@ -20,7 +20,7 @@ nav {
 
 .col {
   text-align: center;
-  border: solid 2px red;
+
 }
 
 .navbar-brand {
@@ -29,6 +29,19 @@ nav {
 
 .nav-item {
   margin-right: 10px;
+}
+
+.margin-bottom {
+  margin-bottom: 30px;
+}
+
+.row {
+  margin: 20px;
+}
+
+.progress {
+  height: 30px;
+  padding: 0;
 }
 
 /* based on https://stackoverflow.com/questions/39495493/line-under-navbar-when-hovering */
@@ -58,4 +71,25 @@ nav {
 
 .center {
   text-align: center;
+}
+
+.round_image {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border: 1px solid black;
+}
+
+.square_image {
+  width: 150px;
+  height: 150px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border: 1px solid black;
 }

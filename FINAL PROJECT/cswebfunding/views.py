@@ -57,11 +57,18 @@ def register(request):
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
+
         except IntegrityError:
             return render(request, "cswebfunding/register.html", {
                 "message": "Username already taken."
             })
+
+        user = User.objects.get(username=username)
+        user.photo = request.FILES["photo"]
+        user.save()
+
         login(request, user)
+
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "cswebfunding/register.html")
@@ -105,7 +112,8 @@ def newlisting(request):
             project = project,
             goodcause = goodcause,
             goal = request.POST["goal"],
-            final_date = request.POST["final_date"]
+            final_date = request.POST["final_date"],
+            photo = request.FILES["photo"]
         )
         
         listing.save()
@@ -123,6 +131,7 @@ def all_listings(request):
     return render(request, "cswebfunding/all_listings.html", {
         'listings': listings
     })
+
 
 def listing (request, id):
     try:

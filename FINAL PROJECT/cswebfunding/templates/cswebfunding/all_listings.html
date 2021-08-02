@@ -16,7 +16,7 @@
               <div class="card-body text-center">
                 <h4>{{ listing.title }}</h4>
                 <a href="#">
-                  <img class="card-img-top" src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="main image of {{ listing.title }}">
+                  <img id="image" class="card-img-top" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
                 </a>
                 <ul class="list-inline mt-3">
                     <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>

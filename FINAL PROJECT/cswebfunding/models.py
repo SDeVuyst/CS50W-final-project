@@ -5,6 +5,7 @@ from django.db import models
 class User(AbstractUser):
    # Balance can be maximum 999,999.99
    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+   photo = models.ImageField(upload_to='media/', default="default-user.jpg")
 
 
 class Listing(models.Model):
@@ -18,4 +19,4 @@ class Listing(models.Model):
    amountbackers = models.PositiveIntegerField(default=0)
    created_at = models.DateField(auto_now_add=True)
    final_date = models.DateField()
-   photo = models.ImageField(upload_to='media/', default="default.jpg")
+   photo = models.ImageField(upload_to='media/', default="default-listing.jpg")

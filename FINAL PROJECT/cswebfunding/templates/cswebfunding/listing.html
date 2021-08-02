@@ -4,7 +4,44 @@
 
 {% if listing %}
 
-    <h3 class="center">{{ listing.title }}</h3>
+    <h3 class="center margin-bottom">{{ listing.title }}</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ listing.description}}
+            </div>
+            <div class="col">
+                <img class="card-img-top" src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="main image of {{ listing.title }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
+                    <span class="lead">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-5">
+                <p class="lead">About the author</p>
+                <a href="#">
+                    <img id="image" class="card-img-top round_image" src="{{ listing.author.photo.url }}" alt="author image of {{ listing.author.username }}">
+                </a>
+            </div>
+            <div class="col-7">
+                CUSTOM INFO BOX
+            </div>
+        </div>
+        <hr>
+        <a class="btn btn-outline-dark my-2" href="#" role="button">Comment.</a>
+        <a class="btn btn-outline-dark my-2" href="#" role="button">Like.</a>
+        <hr>
+        <div>
+            COMMENTS
+        </div>
+    </div>
 
 {% else %}
 

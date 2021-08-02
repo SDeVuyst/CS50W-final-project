@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Image preview on newlising.html
+    formFile.onchange = evt => {
+        const [file] = formFile.files
+        if (file) {
+            output.src = URL.createObjectURL(file)
+            output.hidden = false;
+        }
+    };
+})
+
 
 function addfunds () {
 

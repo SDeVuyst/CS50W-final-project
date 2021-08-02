@@ -2,7 +2,7 @@
 
 {% block body %}
 <h2>Create listing page</h2>
-<form action="{% url 'newlisting' %}" method="post" id="newlistingform">
+<form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Title input -->
     <div class="form-group">
@@ -29,8 +29,9 @@
     </div>
     <!-- Main image input -->
     <div class="form-group">
-        <input class="form-control" type="file" id="formFile" accept="image/*">
-      </div>
+        <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
+        <img hidden id="output" src="#" alt="your image" class="square_image">
+    </div>
     <!-- Final date input starting from today and maximum 5 years from now-->
     <div class="form-group">
         <input onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date" id="datefield">
