@@ -1,0 +1,14 @@
+{% extends "cswebfunding/layout.html" %}
+
+{% block body %}
+
+{% if listing %}
+
+    <h3 class="center">{{ listing.title }}</h3>
+
+{% else %}
+
+    <h3 class="center">Error! The listing you were trying to get does not exist!</h3>
+
+{% endif %}
+{% endblock %}

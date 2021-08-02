@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 from decimal import Decimal
 
@@ -121,4 +122,14 @@ def all_listings(request):
 
     return render(request, "cswebfunding/all_listings.html", {
         'listings': listings
+    })
+
+def listing (request, id):
+    try:
+        listing = Listing.objects.get(id=id)
+    except ObjectDoesNotExist:
+        listing = None
+
+    return render(request, "cswebfunding/listing.html", {
+        "listing": listing
     })

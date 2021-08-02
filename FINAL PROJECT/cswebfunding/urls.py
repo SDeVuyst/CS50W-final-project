@@ -10,6 +10,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("newlisting", views.newlisting, name="newlisting"),
     path("all_listings", views.all_listings, name="all_listings"),
-    # API PATHS
+    path("listing/<int:id>", views.listing, name="listing"),
     path("addfunds/<str:amount>", views.addfunds, name="addfunds"),
 ]

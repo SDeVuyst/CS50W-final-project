@@ -5,7 +5,7 @@
 
 
 <!-- inspired on https://bootsnipp.com/20snippets/01pbj -->
-<h3 id="center">All listings</h3>
+<h3 class="center">All listings</h3>
 <!-- TODO: display author, project/goodcause, amountbackers, fix photo -->
 <div class="container mb-4">
   <div class="row">
@@ -26,7 +26,7 @@
                 <p>{% widthratio listing.donated listing.goal 100 %}% donated - ${{ result|add:listing.goal }} remaining</p>
       
                 <p class="lead">{{ listing.description }}</p>
-                <a class="btn btn-outline-dark my-2" href="#" role="button">Read more...</a>
+                <a class="btn btn-outline-dark my-2" href="/listing/{{ listing.id }}" role="button">Read more...</a>
               </div>
           </div>
       </div>
