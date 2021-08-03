@@ -6,6 +6,7 @@ class User(AbstractUser):
    # Balance can be maximum 999,999.99
    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
    photo = models.ImageField(upload_to='media/', default="default-user.jpg")
+   about_me = models.CharField(max_length=256, default="Description of User")
 
 
 class Listing(models.Model):

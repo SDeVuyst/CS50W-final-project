@@ -65,6 +65,7 @@ def register(request):
 
         user = User.objects.get(username=username)
         user.photo = request.FILES["photo"]
+        user.about_me = request.POST["about_me"]
         user.save()
 
         login(request, user)
@@ -111,7 +112,7 @@ def newlisting(request):
             author = request.user,
             project = project,
             goodcause = goodcause,
-            goal = request.POST["goal"],
+            goal = request.POST["goal"], 
             final_date = request.POST["final_date"],
             photo = request.FILES["photo"]
         )
@@ -143,5 +144,10 @@ def listing (request, id):
         "listing": listing
     })
 
+
 def profile (request, id):
-    return render(request, "cswebfunding/profile.html")
+
+    profile = User.objects.get(id=id)
+    return render(request, "cswebfunding/profile.html", {
+        "profile": profile
+    })

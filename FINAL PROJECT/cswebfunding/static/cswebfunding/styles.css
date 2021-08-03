@@ -10,6 +10,13 @@ nav {
   margin-bottom: 10px;
 }
 
+.parentul {
+  text-align: center;
+}
+
+.parentul > ul {
+  display: inline-block;
+}
 .form-group {
   margin: 10px;
 }
@@ -42,6 +49,13 @@ nav {
 .progress {
   height: 30px;
   padding: 0;
+}
+
+.listing_image {
+  height: 350px;
+  width: 350px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 /* based on https://stackoverflow.com/questions/39495493/line-under-navbar-when-hovering */

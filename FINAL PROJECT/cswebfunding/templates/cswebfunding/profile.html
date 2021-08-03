@@ -2,8 +2,7 @@
 
 {% block body %}
 
-    <!-- Button redirect to newlisting page -->
-    <h4>Profile of {{ profile.username }}
-    <!-- <img id="image" class="card-img-top square_image" src="{{ request.user.photo.url }}" alt="main image of {{ request.user.title }}"> -->
-    
+    <h4 class="center">Profile of {{ profile.username }} </h4>
+    <img id="image" class="card-img-top square_image" src="{{ profile.photo.url }}" alt="main image of {{ profile.title }}">
+    <p>{{ user.about_me }}</p>
 {% endblock %}
