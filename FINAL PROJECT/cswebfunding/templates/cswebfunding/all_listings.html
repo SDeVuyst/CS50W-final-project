@@ -22,8 +22,7 @@
                     <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>
                 </ul>
                 <hr>
-                {% widthratio listing.donated 1 -1 as result %}
-                <p>{% widthratio listing.donated listing.goal 100 %}% donated - ${{ result|add:listing.goal }} remaining</p>
+                <p>${{listing.donated}} donated - ${{ listing.goal }} requested</p>
       
                 <p class="lead">{{ listing.description }}</p>
                 <a class="btn btn-outline-dark my-2" href="/listing/{{ listing.id }}" role="button">Read more...</a>

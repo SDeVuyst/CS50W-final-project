@@ -2,42 +2,66 @@
 
 {% block body %}
 <h2>Create listing page</h2>
-<form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
-    {% csrf_token %}
-    <!-- Title input -->
-    <div class="form-group">
-        <input required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
-    </div>
-    <!-- Description input -->
-    <div class="form-group">
-        <input required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
-    </div>
-    <!-- Category input -->
-    <div required class="form-group">
-        <div class="form-check">
-            <input required class="form-check-input" type="radio" name="category" id="good_cause" value="goodcause">
-            <label class="form-check-label" for="good_cause">Good Cause</label>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h4 id="newlistingtitle">Title</h4>
+                    <a href="#">
+                    <img id="output" class="card-img-top" src="media/default-listing.jpg" alt="default listing image">
+                    </a>
+                    <ul class="list-inline mt-3">
+                        <li class="list-inline-item" id="newlistingdate">28/10/2021 - 28/10/2025</li>
+                    </ul>
+                    <hr>
+                    <p>$0 donated - $<span id="newlistinggoal">300</span> requested</p>
+                    <p id="newlistingdescription" class="lead">This is a short description of your listing.</p>
+                    <a class="btn btn-outline-dark my-2" href="#" role="button">Read more...</a>
+                </div>
+            </div>
         </div>
-        <div class="form-check">
-            <input required class="form-check-input" type="radio" name="category" id="project" value="project">
-            <label class="form-check-label" for="project">Project</label>
+        <div class="col register">
+            <form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Title input -->
+                <div class="form-group">
+                    <input id="titleform" required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
+                </div>
+                <!-- Description input -->
+                <div class="form-group">
+                    <input id="descriptionform" required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
+                </div>
+                <!-- Category input -->
+                <div required class="form-group">
+                    <div class="form-check">
+                        <input required class="form-check-input" type="radio" name="category" id="good_cause" value="goodcause">
+                        <label class="form-check-label" for="good_cause">Good Cause</label>
+                    </div>
+                    <div class="form-check">
+                        <input required class="form-check-input" type="radio" name="category" id="project" value="project">
+                        <label class="form-check-label" for="project">Project</label>
+                    </div>
+                </div>
+                <!-- Goal input -->
+                <div class="form-group">
+                    <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal in $">
+                </div>
+                <!-- Main image input -->
+                <div class="form-group">
+                    <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
+                </div>
+                <!-- Final date input starting from today and maximum 5 years from now-->
+                <div class="form-group">
+                    <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date" id="datefield">
+                </div>
+                
+                <!-- Submit button -->
+                <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing">
+            </form>
+            
         </div>
     </div>
-    <!-- Goal input -->
-    <div class="form-group">
-        <input required autocomplete="off" class="form-control" type="number" name="goal" min="10" placeholder="Goal in $">
-    </div>
-    <!-- Main image input -->
-    <div class="form-group">
-        <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
-        <img hidden id="output" src="#" alt="your image" class="square_image">
-    </div>
-    <!-- Final date input starting from today and maximum 5 years from now-->
-    <div class="form-group">
-        <input onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date" id="datefield">
-    </div>
-    
-    <!-- Submit button -->
-    <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing">
-</form>
+</div>
+
 {% endblock %}
