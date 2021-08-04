@@ -27,28 +27,43 @@
 
                 <!-- Title input -->
                 <div class="form-group">
+                    <h5 class="begin lead">Please add a title</h5>
                     <input id="titleform" required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
                 </div>
 
                 <!-- Description input -->
                 <div class="form-group">
+                    <h5 class="begin lead">Please add a description</h5>
                     <input id="descriptionform" required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
                 </div>
 
                 <!-- Type input -->
-                <div required class="form-group">
-                    <div class="form-check begin">
-                        <input required class="form-check-input" type="radio" name="type" id="good_cause" value="goodcause">
-                        <label class="form-check-label" for="good_cause">Good Cause</label>
+                <div class="row">
+                    <div class="col">
+                        <div required class="form-group">
+                            <h5 class="begin lead">Please select a type</h5>
+                            <div class="form-check begin">
+                                <input required class="form-check-input" type="radio" name="type" id="good_cause" value="goodcause">
+                                <label class="form-check-label" for="good_cause">Good Cause</label>
+                            </div>
+                            <div class="form-check">
+                                <input required class="form-check-input" type="radio" name="type" id="project" value="project">
+                                <label class="form-check-label" for="project">Project</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input required class="form-check-input" type="radio" name="type" id="project" value="project">
-                        <label class="form-check-label" for="project">Project</label>
+                    <div class="col">
+                        <div class="form-group">
+                            <input class="form-check-input" type="checkbox" value="" id="checkboxdonationbadge">
+                            <label class="form-check-label lead" for="flexCheckDefault">
+                              Add Custom Donation Badges
+                            </label>
+                          </div>
                     </div>
                 </div>
-
                 <!-- category input -->
                 <div class="form-group">
+                    <h5 class="begin lead">Please select a category</h5>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="inputGroupSelect01">Category</label>
                         <select required class="form-select" id="inputGroupSelect01" name="category">
@@ -70,23 +85,25 @@
 
                 <!-- Goal input -->
                 <div class="form-group">
-                    <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal in $">
+                    <h5 class="begin lead">Please add a goal</h5>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal">
+                    </div>
                 </div>
 
                 <!-- Main image input -->
                 <div class="form-group">
+                    <h5 class="begin lead">Please add an image</h5>
                     <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
                 </div>
 
                 <!-- Final date input starting from today and maximum 5 years from now-->
                 <div class="form-group">
+                    <h5 class="begin lead">Please select a final date</h5>
                     <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date">
                 </div>
-                <!-- TODO: custom badges -->
-                <div class="form-group">
-                    
-                </div>
-
+                
                 <!-- Submit button -->
                 <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing" id="newlistingsubmit">
             </form>

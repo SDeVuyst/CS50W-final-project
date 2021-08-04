@@ -23,3 +23,8 @@ class Listing(models.Model):
    created_at = models.DateField(auto_now_add=True)
    final_date = models.DateField()
    photo = models.ImageField(upload_to='media/', default="default-listing.jpg")
+
+class CustomBadge(models.Model):
+   listing = models.ForeignKey('Listing', on_delete=models.CASCADE)
+   title = models.CharField(max_length=50)
+   amount = models.PositiveIntegerField()
