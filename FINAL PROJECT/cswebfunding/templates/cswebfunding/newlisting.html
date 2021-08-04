@@ -1,7 +1,7 @@
 {% extends "cswebfunding/layout.html" %}
 
 {% block body %}
-<h2>Create listing page</h2>
+<h2 class="center">Create a new listing</h2>
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
@@ -21,43 +21,74 @@
                 </div>
             </div>
         </div>
-        <div class="col register">
+        <div class=" col register">
             <form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
                 {% csrf_token %}
+
                 <!-- Title input -->
                 <div class="form-group">
                     <input id="titleform" required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
                 </div>
+
                 <!-- Description input -->
                 <div class="form-group">
                     <input id="descriptionform" required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
                 </div>
-                <!-- Category input -->
+
+                <!-- Type input -->
                 <div required class="form-group">
-                    <div class="form-check">
-                        <input required class="form-check-input" type="radio" name="category" id="good_cause" value="goodcause">
+                    <div class="form-check begin">
+                        <input required class="form-check-input" type="radio" name="type" id="good_cause" value="goodcause">
                         <label class="form-check-label" for="good_cause">Good Cause</label>
                     </div>
                     <div class="form-check">
-                        <input required class="form-check-input" type="radio" name="category" id="project" value="project">
+                        <input required class="form-check-input" type="radio" name="type" id="project" value="project">
                         <label class="form-check-label" for="project">Project</label>
                     </div>
                 </div>
+
+                <!-- category input -->
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                        <select required class="form-select" id="inputGroupSelect01" name="category">
+
+                            <option selected value="" disabled >Select Category</option>
+                            <option value="1">Art</option>
+                            <option value="2">Comics & Illustration</option>
+                            <option value="3">Design & Tech</option>
+                            <option value="4">Film</option>
+                            <option value="5">Food & Craft</option>
+                            <option value="6">Games</option>
+                            <option value="7">Music</option>
+                            <option value="8">Publishing</option>
+                            <option value="9">Other</option>
+
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Goal input -->
                 <div class="form-group">
                     <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal in $">
                 </div>
+
                 <!-- Main image input -->
                 <div class="form-group">
                     <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
                 </div>
+
                 <!-- Final date input starting from today and maximum 5 years from now-->
                 <div class="form-group">
-                    <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date" id="datefield">
+                    <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date">
                 </div>
-                
+                <!-- TODO: custom badges -->
+                <div class="form-group">
+                    
+                </div>
+
                 <!-- Submit button -->
-                <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing">
+                <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing" id="newlistingsubmit">
             </form>
             
         </div>

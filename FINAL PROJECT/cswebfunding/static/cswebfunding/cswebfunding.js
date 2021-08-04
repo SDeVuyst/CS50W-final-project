@@ -136,7 +136,7 @@ function setdatelisting () {
     mindate = yyyy+'-'+mm+'-'+dd;
     maxdate = yyyy+5 +'-'+mm+'-'+dd;
 
-    var element = document.getElementById("datefield");
+    var element = document.getElementById("dateform");
     element.setAttribute("min", mindate);
     element.setAttribute("max", maxdate);
 

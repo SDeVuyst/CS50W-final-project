@@ -17,6 +17,7 @@ class Listing(models.Model):
    project = models.BooleanField(default=0)
    goodcause = models.BooleanField(default=0)
    donated = models.PositiveIntegerField(default=0)
+   category = models.PositiveIntegerField(default=9)
    goal = models.PositiveIntegerField(validators=[MaxValueValidator(10000000),MinValueValidator(10)])
    amountbackers = models.PositiveIntegerField(default=0)
    created_at = models.DateField(auto_now_add=True)

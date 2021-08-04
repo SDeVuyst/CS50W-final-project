@@ -96,10 +96,10 @@ def newlisting(request):
     elif request.method == "POST":
 
         # Get all the info needed and create a new listing
-        if request.POST["category"] == "project":
+        if request.POST["type"] == "project":
             project = 1
             goodcause = 0
-        elif request.POST["category"] == "goodcause":
+        elif request.POST["type"] == "goodcause":
             project = 0
             goodcause = 1
         else:
@@ -114,6 +114,7 @@ def newlisting(request):
             goodcause = goodcause,
             goal = request.POST["goal"], 
             final_date = request.POST["final_date"],
+            category = request.POST["category"],
             photo = request.FILES["photo"]
         )
         

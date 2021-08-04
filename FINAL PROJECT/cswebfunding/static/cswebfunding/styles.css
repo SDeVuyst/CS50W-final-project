@@ -21,6 +21,7 @@ nav {
 .parentul > ul {
   display: inline-block;
 }
+
 .form-group {
   margin: 10px;
 }
@@ -29,9 +30,8 @@ nav {
   align-content: right;
 }
 
-.col {
-  text-align: center;
-
+.begin {
+  align-content: left;
 }
 
 .navbar-brand {
@@ -110,4 +110,8 @@ nav {
   margin-top: 25px;
   margin-bottom: 25px;
   border: 1px solid black;
+}
+
+#newlistingsubmit {
+  margin-left: 10px;
 }
