@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 
 from decimal import Decimal
 
@@ -128,10 +129,16 @@ def newlisting(request):
 
 def all_listings(request):
     
-    listings = Listing.objects.all()
+    listings = Listing.objects.all().order_by('-id')
+
+    # Add Paginator
+    paginator = Paginator(listings, 9)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, "cswebfunding/all_listings.html", {
-        'listings': listings
+        'listings': page_obj
     })
 
 

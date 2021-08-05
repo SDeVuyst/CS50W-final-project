@@ -9,6 +9,9 @@ class User(AbstractUser):
    photo = models.ImageField(upload_to='media/', default="default-user.jpg")
    about_me = models.CharField(max_length=256, default="Description of User")
 
+   def __str__(self):
+      return f'User {self.username} - {self.id}'
+
 
 class Listing(models.Model):
    title = models.CharField(max_length=50)
@@ -24,7 +27,5 @@ class Listing(models.Model):
    final_date = models.DateField()
    photo = models.ImageField(upload_to='media/', default="default-listing.jpg")
 
-class CustomBadge(models.Model):
-   listing = models.ForeignKey('Listing', on_delete=models.CASCADE)
-   title = models.CharField(max_length=50)
-   amount = models.PositiveIntegerField()
+   def __str__(self):
+      return f'Listing {self.title} - {self.id}'
