@@ -85,6 +85,7 @@ nav {
 
 .center {
   text-align: center;
+  align-items: center;
 }
 
 .round_image {
@@ -106,6 +107,20 @@ nav {
   margin-top: 25px;
   margin-bottom: 25px;
   border: 1px solid black;
+}
+
+.imageitem {
+  margin-top: 18px;
+  margin-bottom: 20px;
+  align-content: center;
+  height: 350px;
+  width: 350px;
+}
+
+#output {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
 }
 
 #newlistingsubmit {
