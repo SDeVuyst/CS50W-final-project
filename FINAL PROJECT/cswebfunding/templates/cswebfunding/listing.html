@@ -8,15 +8,16 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                {{ listing.description}}
+                <img class="card-img-top listing_image" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
             </div>
             <div class="col">
-                <img class="card-img-top listing_image" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
+                {{ listing.description}}
             </div>
         </div>
 
         <div class="row">
             <div class="progress">
+                
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
                     <span class="lead">${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 </div>
