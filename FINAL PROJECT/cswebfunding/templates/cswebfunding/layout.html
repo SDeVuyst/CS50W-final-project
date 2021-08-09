@@ -26,16 +26,27 @@
 
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'profile' id=request.user.id %}">{{ user.username }}</a>
+                            <a class="nav-link active underline" href="{% url 'profile' id=request.user.id %}">{{ user.username }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'logout' %}">Log Out</a>
+                            <a class="nav-link active underline" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Listings
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'all_listings' %}">All listings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/filter/goodcause">Good Causes</a></li>
+                                <li><a class="dropdown-item" href="/filter/project">Projects</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <!-- TODO: make modal appear on press filter listinsg -->
+                                <li><a class="dropdown-item" href="#">Filter listings</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'all_listings' %}">All listings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" onclick="hidemodalmessage()" data-bs-toggle="modal" data-bs-target="#fundsModal">Add funds</a>
+                            <a class="nav-link active underline" onclick="hidemodalmessage()" data-bs-toggle="modal" data-bs-target="#fundsModal">Add funds</a>
                         </li>
                     </ul>
                     <span class="navbar-text" id="balance">
@@ -44,13 +55,13 @@
 
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'login' %}">Log In</a>
+                            <a class="nav-link active underline" href="{% url 'login' %}">Log In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link active underline" href="{% url 'register' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'all_listings' %}">All listings</a>
+                            <a class="nav-link active underline" href="{% url 'all_listings' %}">All listings</a>
                         </li>
                     </ul>
                     {% endif %}

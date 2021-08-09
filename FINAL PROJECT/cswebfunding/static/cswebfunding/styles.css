@@ -59,15 +59,14 @@ nav {
 }
 
 /* based on https://stackoverflow.com/questions/39495493/line-under-navbar-when-hovering */
-.nav-link {
+.underline {
   color: #d20807;
   float: left;
   position: relative;
-  padding: 10px 20px;
   overflow: hidden;
 }
 
-.nav-link::after {
+.underline::after {
   background-color: #d20807;
   content: "";
   width: 0;
@@ -78,10 +77,11 @@ nav {
   position: absolute;
 }
 
-.nav-link:hover::after {
+.underline:hover::after {
   width: 100%;
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 
 .center {
   text-align: center;

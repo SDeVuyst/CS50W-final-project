@@ -137,12 +137,13 @@ def all_listings(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, "cswebfunding/all_listings.html", {
+    return render(request, "cswebfunding/listings.html", {
+        'title': 'All Listings',
         'listings': page_obj
     })
 
 
-def listing (request, id):
+def listing(request, id):
     try:
         listing = Listing.objects.get(id=id)
     except ObjectDoesNotExist:
@@ -153,9 +154,35 @@ def listing (request, id):
     })
 
 
-def profile (request, id):
+def profile(request, id):
+
 
     profile = User.objects.get(id=id)
     return render(request, "cswebfunding/profile.html", {
         "profile": profile
+    })
+
+def filtered_listings(request, filter):
+
+    if filter == 'goodcause':
+        listings = Listing.objects.filter(goodcause=1).order_by('-id')
+        title = "Good Causes"
+
+    elif filter == 'project':
+        listings = Listing.objects.filter(project=1).order_by('-id')
+        title = "Projects"
+    
+    else: 
+        return render(request, "cswebfunding/index.html")
+
+
+    # Add Paginator
+    paginator = Paginator(listings, 9)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "cswebfunding/listings.html", {
+        'title': title,
+        'listings': page_obj
     })
