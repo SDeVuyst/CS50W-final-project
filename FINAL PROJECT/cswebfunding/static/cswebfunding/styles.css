@@ -52,8 +52,8 @@ nav {
 }
 
 .listing_image {
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
   margin-top: 25px;
   margin-bottom: 25px;
 }
@@ -117,6 +117,18 @@ nav {
   width: 350px;
 }
 
+/* Credit to https://codepen.io/tuiaverde/pen/KgJbGx */
+.progress .progress-bar {
+  animation-name: animateBar;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.75s;
+}
+@keyframes animateBar {
+  0% {transform: translateX(-100%);}
+  100% {transform: translateX(0);}
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #output {
   height: 100%;
   width: 100%;

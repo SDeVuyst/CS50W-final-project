@@ -146,6 +146,7 @@ def profile(request, id):
         "profile": profile
     })
 
+
 def listings(request, filter):
 
     if filter == 'goodcause':
