@@ -1,14 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 
 from decimal import Decimal
 
-from .models import User, Listing
+from .models import User, Listing, Donation
 
 
 def index(request):
@@ -223,3 +223,39 @@ def listings(request, filter):
         'title': title,
         'listings': page_obj
     })
+
+#TODO: make sure balance can't go negative
+#TODO: What to to when over-donating
+def donate(request):
+
+    if request.method == "POST":
+        
+        # Get amount and listing from form
+        user = request.user
+        amount = Decimal(request.POST["donateamount"])
+        listingid = request.POST["listingid"]
+        try:
+            listing = Listing.objects.get(id=listingid)
+        except:
+            raise Exception("Listing Doesn't exist")
+
+        # Add donation model 
+        donation = Donation(
+            user=user,
+            listing=listing,
+            amount=amount
+        )
+        donation.save()
+
+        # Deduct donation from balance
+        user.balance -= amount
+        user.save()
+
+        # Add donation to listing
+        listing.donated += amount
+        listing.save()
+
+        return redirect(f'/listing/{listingid}')
+
+    else:
+        raise Exception('WrongRequest')

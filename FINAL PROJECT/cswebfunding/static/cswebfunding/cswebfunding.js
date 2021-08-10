@@ -144,3 +144,4 @@ function setdatelisting () {
     console.log(`set min to ${mindate} and maxdate to ${maxdate}`)
 
 };
+

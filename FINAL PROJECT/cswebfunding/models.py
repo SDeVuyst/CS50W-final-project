@@ -10,7 +10,7 @@ class User(AbstractUser):
    about_me = models.CharField(max_length=256, default="Description of User")
 
    def __str__(self):
-      return f'User {self.username} - {self.id}'
+      return f'{self.username}({self.id})'
 
 
 class Listing(models.Model):
@@ -22,10 +22,18 @@ class Listing(models.Model):
    donated = models.PositiveIntegerField(default=0)
    category = models.PositiveIntegerField(default=9)
    goal = models.PositiveIntegerField(validators=[MaxValueValidator(10000000),MinValueValidator(10)])
-   amountbackers = models.PositiveIntegerField(default=0)
    created_at = models.DateField(auto_now_add=True)
    final_date = models.DateField()
    photo = models.ImageField(upload_to='media/', default="default-listing.jpg")
 
    def __str__(self):
-      return f'Listing {self.title} - {self.id}'
+      return f'{self.title}({self.id})'
+   
+
+class Donation(models.Model):
+   user = models.ForeignKey('User', on_delete=models.CASCADE)
+   listing = models.ForeignKey('Listing', on_delete=models.CASCADE)
+   amount = models.PositiveIntegerField(default=0)
+   
+   def __str__(self):
+      return f'{self.user} donated ${self.amount} to {self.listing}'

@@ -28,12 +28,12 @@
                     <span class="lead">${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 </div>
                 {% if not listing.donated %}
-                <span class="lead text-primary center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 {% endif %}
             </div>
         </div>
         <hr>
-        <a class="btn btn-outline-dark my-2" href="#" role="button">Donate</a>
+        <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
         <a class="btn btn-outline-dark my-2" href="#" role="button">Comment.</a>
         <a class="btn btn-outline-dark my-2" href="#" role="button">Like.</a>
         <hr>
@@ -41,10 +41,54 @@
             <p class="lead">COMMENTS</p>
         </div>
     </div>
+    
+    <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/donate" method="post">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h5 class="modal-title" id="donateModalLabel">Donate to {{ listing.title }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+    
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div>
+                    <h6>Your current balance is ${{ user.balance }}</h6>
+                    <hr>
+                </div>  
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input name="donateamount" id="donateamount" type="text" class="form-control" autocomplete="off" aria-label="Amount">
+                </div>
+    
+                <div id="donatemodalmessagediv" hidden>
+                    <hr>
+                    <p id="donatemodalmessage"></p>
+                </div>
+                <input name="listingid" id="listingid" hidden value="{{ listing.id }}">
+                {% csrf_token %}
+            </div>
+    
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-outline-dark my-2" value="Donate">
+
+            </form>
+            </div>
+    
+        </div>
+        </div>
+    </div>
+  
+  </div>
 {% else %}
 
     <h3 class="center">Error! The listing you were trying to get does not exist!</h3>
 
 {% endif %}
+
 {% endblock %}
