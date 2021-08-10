@@ -127,22 +127,6 @@ def newlisting(request):
         return render(request, "cswebfunding/index.html")
 
 
-def all_listings(request):
-    
-    listings = Listing.objects.all().order_by('-id')
-
-    # Add Paginator
-    paginator = Paginator(listings, 9)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, "cswebfunding/listings.html", {
-        'title': 'All Listings',
-        'listings': page_obj
-    })
-
-
 def listing(request, id):
     try:
         listing = Listing.objects.get(id=id)
@@ -162,7 +146,7 @@ def profile(request, id):
         "profile": profile
     })
 
-def filtered_listings(request, filter):
+def listings(request, filter):
 
     if filter == 'goodcause':
         listings = Listing.objects.filter(goodcause=1).order_by('-id')
@@ -171,7 +155,59 @@ def filtered_listings(request, filter):
     elif filter == 'project':
         listings = Listing.objects.filter(project=1).order_by('-id')
         title = "Projects"
+
+    elif filter == 'latest':
+        listings = Listing.objects.all().order_by('-id')
+        title = "Latest Listings"
+
+    elif filter == 'newest':
+        listings = Listing.objects.all().order_by('id')
+        title = "Newest Listings"
+
+    elif filter == 'highest':
+        listings = Listing.objects.all().order_by('-goal')
+        title = "Listings With Highest Goal"
+
+    elif filter == 'lowest':
+        listings = Listing.objects.all().order_by('goal')
+        title = "Listings With Lowest Goal"
+
+    elif filter == 'art':
+        listings = Listing.objects.filter(category=1).order_by('-id')
+        title = "Art Listings"
+
+    elif filter == 'comics-and-illustration':
+        listings = Listing.objects.filter(category=2).order_by('-id')
+        title = "Comics And Illustration listings"
     
+    elif filter == 'design-and-tech':
+        listings = Listing.objects.filter(category=3).order_by('-id')
+        title = "Design And Tech Listings"
+        
+    elif filter == 'film':
+        listings = Listing.objects.filter(category=4).order_by('-id')
+        title = "Film Listings"
+        
+    elif filter == 'food-and-craft':
+        listings = Listing.objects.filter(category=5).order_by('-id')
+        title = "Food And Craft Listings"
+        
+    elif filter == 'games':
+        listings = Listing.objects.filter(category=6).order_by('-id')
+        title = "Games Listings"
+        
+    elif filter == 'music':
+        listings = Listing.objects.filter(category=7).order_by('-id')
+        title = "Music Listings"
+        
+    elif filter == 'publishing':
+        listings = Listing.objects.filter(category=8).order_by('-id')
+        title = "Publishing Listings"
+    
+    elif filter == 'other':
+        listings = Listing.objects.filter(category=9).order_by('-id')
+        title = "Other Listings"
+        
     else: 
         return render(request, "cswebfunding/index.html")
 
