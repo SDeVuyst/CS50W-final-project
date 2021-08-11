@@ -6,54 +6,52 @@ document.addEventListener('DOMContentLoaded', function () {
     var goalform = document.getElementById("goalform");
     var dateform = document.getElementById("dateform");
 
-    // Title
-    titleform.oninput = evt => {
-        var title = document.getElementById("newlistingtitle");
-        title.innerHTML = titleform.value;
-    }
-
-    // Description
-    descriptionform.oninput = evt => {
-        var description = document.getElementById("newlistingdescription");
-        description.innerHTML = descriptionform.value;
-    }
-
-    // Goal
-    goalform.oninput = evt => {
-        var goal = document.getElementById("newlistinggoal");
-        goal.innerHTML = goalform.value;
-    }
-
-    // Date
-    dateform.oninput = evt => {
-        var date = document.getElementById("newlistingdate");
-
-        var today = new Date();
-        var dd = today.getDate(); // Project must be open for at least a day
-        var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
-        var yyyy = today.getFullYear();
-
-        if(dd<10){
-            dd='0'+dd
-        } 
-        if(mm<10){
-            mm='0'+mm
-        } 
-
-        mindate = yyyy+'-'+mm+'-'+dd;
-        date.innerHTML = `${mindate} - ${dateform.value}`;
-    }
-
-    // Photo
-    formFile.onchange = evt => {
-        const [file] = formFile.files
-        if (file) {
-            output.src = URL.createObjectURL(file)
+        // Title
+        titleform.oninput = evt => {
+            var title = document.getElementById("newlistingtitle");
+            title.innerHTML = titleform.value;
         }
-    };
 
-    
-})
+        // Description
+        descriptionform.oninput = evt => {
+            var description = document.getElementById("newlistingdescription");
+            description.innerHTML = descriptionform.value;
+        }
+
+        // Goal
+        goalform.oninput = evt => {
+            var goal = document.getElementById("newlistinggoal");
+            goal.innerHTML = goalform.value;
+        }
+
+        // Date
+        dateform.oninput = evt => {
+            var date = document.getElementById("newlistingdate");
+
+            var today = new Date();
+            var dd = today.getDate(); // Project must be open for at least a day
+            var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+            var yyyy = today.getFullYear();
+
+            if(dd<10){
+                dd='0'+dd
+            } 
+            if(mm<10){
+                mm='0'+mm
+            } 
+
+            mindate = yyyy+'-'+mm+'-'+dd;
+            date.innerHTML = `${mindate} - ${dateform.value}`;
+        }
+
+        // Photo
+        formFile.onchange = evt => {
+            const [file] = formFile.files
+            if (file) {
+                output.src = URL.createObjectURL(file)
+            }
+        };  
+});
 
 
 function addfunds () {
@@ -144,4 +142,3 @@ function setdatelisting () {
     console.log(`set min to ${mindate} and maxdate to ${maxdate}`)
 
 };
-

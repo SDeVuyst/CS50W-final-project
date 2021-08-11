@@ -25,7 +25,7 @@
         <div class="row">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
-                    <span class="lead">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                    <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 </div>
                 {% if not listing.donated %}
                 <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
@@ -42,6 +42,7 @@
         </div>
     </div>
     
+    <!-- TODO: confirmation if user exceeds listing goal -->
     <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -61,7 +62,7 @@
                 </div>  
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
-                    <input name="donateamount" id="donateamount" type="text" class="form-control" autocomplete="off" aria-label="Amount">
+                    <input name="donateamount" id="donateamount" type="number" class="form-control" autocomplete="off" aria-label="Amount" min="1" max="{{ user.balance }}">
                 </div>
     
                 <div id="donatemodalmessagediv" hidden>

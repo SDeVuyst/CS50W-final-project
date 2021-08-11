@@ -224,7 +224,6 @@ def listings(request, filter):
         'listings': page_obj
     })
 
-#TODO: make sure balance can't go negative
 #TODO: What to to when over-donating
 def donate(request):
 
@@ -238,6 +237,10 @@ def donate(request):
             listing = Listing.objects.get(id=listingid)
         except:
             raise Exception("Listing Doesn't exist")
+
+        # Check if user can afford the donation
+        if user.balance < amount:
+            raise Exception("User cannot afford donation")
 
         # Add donation model 
         donation = Donation(
