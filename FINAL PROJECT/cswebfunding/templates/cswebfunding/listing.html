@@ -23,6 +23,11 @@
             </div>
         </div>
         <div class="row">
+            {% if message %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
                     <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}${{ listing.donated }} of ${{ listing.goal }} collected</span>

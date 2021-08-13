@@ -127,14 +127,19 @@ def newlisting(request):
         return render(request, "cswebfunding/index.html")
 
 
-def listing(request, id):
+def listing(request, id, message=''):
     try:
         listing = Listing.objects.get(id=id)
     except ObjectDoesNotExist:
         listing = None
 
+    if "success" in message:
+        amount = message.replace("success", '')
+        message = f"You have succesfully donated ${amount}!"
+
     return render(request, "cswebfunding/listing.html", {
-        "listing": listing
+        "listing": listing,
+        "message": message        
     })
 
 
@@ -224,7 +229,7 @@ def listings(request, filter):
         'listings': page_obj
     })
 
-#TODO: What to to when over-donating
+
 def donate(request):
 
     if request.method == "POST":
@@ -258,7 +263,7 @@ def donate(request):
         listing.donated += amount
         listing.save()
 
-        return redirect(f'/listing/{listingid}')
+        return redirect(f'/listing/{listingid}/success{amount}')
 
     else:
         raise Exception('WrongRequest')
