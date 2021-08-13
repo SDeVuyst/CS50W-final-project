@@ -154,11 +154,12 @@ def profile(request, id):
 
 def listings(request, filter):
 
-    if filter == 'goodcause':
+    # I hate the next 50 lines of code 
+    if filter == 'goodcauses':
         listings = Listing.objects.filter(goodcause=1).order_by('-id')
         title = "Good Causes"
 
-    elif filter == 'project':
+    elif filter == 'projects':
         listings = Listing.objects.filter(project=1).order_by('-id')
         title = "Projects"
 

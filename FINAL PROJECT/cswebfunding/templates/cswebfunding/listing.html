@@ -51,7 +51,7 @@
     <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/donate" method="post">
+            <form action="/donate" method="post" onsubmit="return checkexceedsgoal({{ listing.goal }}, {{ listing.donated }})">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -73,6 +73,8 @@
                 <div id="donatemodalmessagediv" hidden>
                     <hr>
                     <p id="donatemodalmessage"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <input onclick="clicked='confirm';" type="submit" class="btn btn-outline-dark my-2" value="Yes">
                 </div>
                 <input name="listingid" id="listingid" hidden value="{{ listing.id }}">
                 {% csrf_token %}
@@ -81,7 +83,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-outline-dark my-2" value="Donate">
+            <input onclick="clicked='not confirmed'"  type="submit" class="btn btn-outline-dark my-2" value="Donate">
 
             </form>
             </div>

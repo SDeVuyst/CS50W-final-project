@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 output.src = URL.createObjectURL(file)
             }
         };  
+    
+    // This if for donation modal, to check if user confirms the donation
+    var clicked
 });
 
 
@@ -142,3 +145,41 @@ function setdatelisting () {
     console.log(`set min to ${mindate} and maxdate to ${maxdate}`)
 
 };
+
+function checkexceedsgoal (goal, donated) {
+
+    // user clicked confirmation button, and wants to donate extra
+    if (clicked == 'confirm') {
+        console.log("confirmed")
+        clicked = 'not confirmed'
+        return true;
+    }
+
+    const togo = goal - donated;
+
+    donateinput = document.getElementById('donateamount').value;
+    var donatemodalmessagediv = document.getElementById("donatemodalmessagediv")
+    var donatemodalmessage = document.getElementById("donatemodalmessage")
+
+    // Listing already reached its goal
+    if (togo < 0) {
+
+        donatemodalmessagediv.hidden = false;
+        donatemodalmessage.innerHTML = "Listing has already completed it's goal. Are you sure you want to donate extra?";
+
+        return false;
+
+    // User wants to donate more than listings goal
+    } else if (donateinput > togo) {
+
+        donatemodalmessagediv.hidden = false;
+        donatemodalmessage.innerHTML = "You will exceed the requested goal. Are you sure you want to donate extra?";
+
+        return false;
+    
+    // Normal donation, form can be submitted
+    } else {
+        return true;
+    }
+
+}
