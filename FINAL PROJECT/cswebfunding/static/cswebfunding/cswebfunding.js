@@ -65,18 +65,18 @@ function addfunds () {
     amount = parseFloat((amount.toFixed(2)));
 
     if (amount) {
-        // Check if input is number
-        if (isNaN(amount)) {
-            console.error("User input must be a number!");
-            modalmessage("Input must be a number.")
-
+        
         // Check if input is positive
-        } else if (Math.sign(amount) === -1) {
+        if (Math.sign(amount) === -1) {
 
             console.error("User input is negative");
             // Show error on modal
             modalmessage("Input must be positive.")
+
             
+        } else if (amount > 100000) {
+            console.error("User input is larger than 100000")
+            modalmessage("Input must be smaller than 100000")
         } else {
 
             // Fetch to add balance to user

@@ -28,19 +28,35 @@
                     {{ message }}
                 </div>
             {% endif %}
+            
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
+                    {% if not listing.get_percentage < 20 %}
                     <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                    {% endif %}
                 </div>
                 {% if not listing.donated %}
+                <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                {% endif %}
+                {% if listing.get_percentage < 20 and listing.donated != 0 %}
                 <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 {% endif %}
             </div>
         </div>
         <hr>
+        
         <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
-        <a class="btn btn-outline-dark my-2" href="#" role="button">Comment.</a>
-        <a class="btn btn-outline-dark my-2" href="#" role="button">Like.</a>
+        
+        <form action="/comment" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <span class="input-group-text">New Comment</span>
+                <textarea class="form-control" aria-label="With textarea" name="content"></textarea>
+                <input hidden value="{{ listing.id }}" name="id">
+                <span class="input-group-addon"><input type="submit" value="Send" class="btn btn-outline-dark"></span>
+              </div>
+        </form>
+        
         <hr>
         <div>
             <p class="lead">COMMENTS</p>
@@ -69,7 +85,7 @@
                     <span class="input-group-text">$</span>
                     <input name="donateamount" id="donateamount" type="number" class="form-control" autocomplete="off" aria-label="Amount" min="1" max="{{ user.balance }}">
                 </div>
-    
+                
                 <div id="donatemodalmessagediv" hidden>
                     <hr>
                     <p id="donatemodalmessage"></p>

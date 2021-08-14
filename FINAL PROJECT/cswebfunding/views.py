@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 
 from decimal import Decimal
 
-from .models import User, Listing, Donation
+from .models import User, Listing, Donation, Comment
 
 
 def index(request):
@@ -136,6 +136,12 @@ def listing(request, id, message=''):
     if "success" in message:
         amount = message.replace("success", '')
         message = f"You have succesfully donated ${amount}!"
+
+    elif message == "comment":
+        message = "Commented Successfully!"
+    # Add 1 popularity per view
+    listing.popularity += 1
+    listing.save()
 
     return render(request, "cswebfunding/listing.html", {
         "listing": listing,
@@ -268,3 +274,32 @@ def donate(request):
 
     else:
         raise Exception('WrongRequest')
+
+
+def comment(request):
+
+    if request.method == 'POST':
+        try:
+            id = request.POST["id"]
+            content = request.POST["content"]
+            listing = Listing.objects.get(id=id)
+            
+            # Add 5 popularity per comment
+            listing.popularity += 5
+            listing.save()
+            
+        except ObjectDoesNotExist:
+            raise Exception("Listing not found...")
+
+        # Actually create comment
+        comment = Comment(
+            listing = listing,
+            user = request.user,
+            content = content,
+        )
+        comment.save()
+
+        return redirect(f'/listing/{id}/comment')
+
+    else: 
+        raise Exception("Wrong request method")

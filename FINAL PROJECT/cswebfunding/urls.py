@@ -15,4 +15,5 @@ urlpatterns = [
     path("profile/<int:id>", views.profile, name="profile"),
     path("listings/<str:filter>", views.listings, name="listings"),
     path("donate", views.donate, name="donate"),
+    path('comment', views.comment, name="comment")
 ]
