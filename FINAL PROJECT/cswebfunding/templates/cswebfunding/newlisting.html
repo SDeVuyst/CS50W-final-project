@@ -4,6 +4,7 @@
 <h2 class="center">Create a new listing</h2>
 <div class="container">
     <div class="row">
+        <!-- Show a preview of what the listing will look like -->
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
             <div class="card shadow center">
                 <div class="card-body text-center">
@@ -22,6 +23,7 @@
             </div>
         </div>
         <div class=" col register">
+            <!-- Form to create new listing -->
             <form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
                 {% csrf_token %}
 

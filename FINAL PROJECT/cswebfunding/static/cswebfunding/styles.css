@@ -10,6 +10,11 @@ nav {
   margin-bottom: 10px;
 }
 
+.commentsubmitbutton {
+  display: inline-flex;
+  align-items: center; 
+}
+
 .register {
   margin-top: 15px;
 }

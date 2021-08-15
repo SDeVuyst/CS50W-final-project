@@ -7,12 +7,15 @@
     <h3 class="center margin-bottom">{{ listing.title }}</h3>
     <div class="container">
         <div class="row">
+            <!-- Main image  -->
             <div class="col-sm-4 center">
                 <img class="card-img-top listing_image" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
             </div>
+            <!-- Listing description -->
             <div class="col-sm-4 center">
                 {{ listing.description}}
             </div>
+            <!-- About the author section -->
             <div class="col-sm-4 center">
                 <p class="lead">ABOUT THE AUTHOR</p>
                 <h5>{{ listing.author.username }}</h5>
@@ -22,13 +25,15 @@
                 <p>{{ listing.author.about_me }}</p>
             </div>
         </div>
+        <!-- Progress bar  -->
         <div class="row">
+            <!-- Message for user -->
             {% if message %}
                 <div class="alert alert-success" role="alert">
                     {{ message }}
                 </div>
             {% endif %}
-            
+            <!-- Actual progress bar -->
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
                     {% if not listing.get_percentage < 20 %}
@@ -42,28 +47,35 @@
                 <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
                 {% endif %}
             </div>
+            <!-- Button that opens up modal to donate -->
+            <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
         </div>
         <hr>
-        
-        <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
-        
-        <form action="/comment" method="post">
-            {% csrf_token %}
-            <div class="input-group">
-                <span class="input-group-text">New Comment</span>
-                <textarea class="form-control" aria-label="With textarea" name="content"></textarea>
-                <input hidden value="{{ listing.id }}" name="id">
-                <span class="input-group-addon"><input type="submit" value="Send" class="btn btn-outline-dark"></span>
-              </div>
-        </form>
-        
+        <!-- Create Comment -->
+        <div class="row">
+            <!-- Error message if comment is empty -->
+            <div hidden id="emptycommentalert" class="alert alert-danger" role="alert">
+                Comment cannot be empty!
+            </div>
+            <!-- Form to write and submit comment -->
+            <form id="commentform" action="/comment" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-text">New Comment</span>
+                    <textarea required="required" class="form-control" aria-label="With textarea" name="content"></textarea>
+                    <input hidden value="{{ listing.id }}" name="id">
+                    <span onclick="submitcommentform()" class="input-group-addon btn btn-outline-dark commentsubmitbutton">Submit</span>
+                </div>
+            </form>
+        </div>
         <hr>
+        <!-- Comment section -->
         <div>
             <p class="lead">COMMENTS</p>
         </div>
     </div>
-    
-    <!-- TODO: confirmation if user exceeds listing goal -->
+
+    <!-- Modal to donate -->
     <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -105,12 +117,10 @@
             </div>
     
         </div>
-        </div>
     </div>
-  
-  </div>
-{% else %}
 
+{% else %}
+    <!-- No listing was found -->
     <h3 class="center">Error! The listing you were trying to get does not exist!</h3>
 
 {% endif %}

@@ -183,3 +183,17 @@ function checkexceedsgoal (goal, donated) {
     }
 
 }
+
+
+function submitcommentform () {
+    var form = document.getElementById("commentform");
+
+    // Comment cannot be empty
+    if (form.checkValidity()) {
+        form.submit();
+    } else {
+        // Comment is empty, display error
+        console.error('Comment cannot be empty');
+        document.getElementById("emptycommentalert").hidden = false;
+    }
+}

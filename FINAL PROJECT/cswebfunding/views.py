@@ -104,7 +104,6 @@ def newlisting(request):
             project = 0
             goodcause = 1
         else:
-            print("Error")
             return render(request, "cswebfunding/index.html")
         
         listing = Listing(
@@ -127,25 +126,29 @@ def newlisting(request):
         return render(request, "cswebfunding/index.html")
 
 
-def listing(request, id, message=''):
+def listingfunc(request, id, extra=''):
+
     try:
         listing = Listing.objects.get(id=id)
     except ObjectDoesNotExist:
-        listing = None
+        raise Exception('Listing does not exist')
 
-    if "success" in message:
-        amount = message.replace("success", '')
-        message = f"You have succesfully donated ${amount}!"
+    if extra == '':
+        # Add 1 popularity per view
+        listing.popularity += 1
+        listing.save()
 
-    elif message == "comment":
-        message = "Commented Successfully!"
-    # Add 1 popularity per view
-    listing.popularity += 1
-    listing.save()
+    # Popularity already added in comment()
+    elif type(extra) == Decimal:
+        extra = f"You have succesfully donated ${extra}!"
+
+    elif extra == "comment":
+        extra = "Commented Successfully!"
+    
 
     return render(request, "cswebfunding/listing.html", {
         "listing": listing,
-        "message": message        
+        "message": extra
     })
 
 
@@ -270,7 +273,7 @@ def donate(request):
         listing.donated += amount
         listing.save()
 
-        return redirect(f'/listing/{listingid}/success{amount}')
+        return listingfunc(request, listingid, amount)
 
     else:
         raise Exception('WrongRequest')
@@ -299,7 +302,7 @@ def comment(request):
         )
         comment.save()
 
-        return redirect(f'/listing/{id}/comment')
+        return listingfunc(request, id, 'comment')
 
     else: 
         raise Exception("Wrong request method")

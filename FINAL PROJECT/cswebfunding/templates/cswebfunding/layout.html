@@ -25,6 +25,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     {% if user.is_authenticated %}
+                    <!-- User is logged in, we can show everythin -->
                         <li class="nav-item">
                             <a class="nav-link active underline" href="{% url 'profile' id=request.user.id %}">{{ user.username }}</a>
                         </li>
@@ -49,7 +50,7 @@
                     <span class="navbar-text" id="balance">
                         Current balance: ${{ user.balance }}
                     </span>
-
+                    <!-- User is not logged in, only show log in, register and all listings -->
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link active underline" href="{% url 'login' %}">Log In</a>
@@ -58,7 +59,7 @@
                             <a class="nav-link active underline" href="{% url 'register' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active underline" href="/listings/latest">All listings</a>
+                            <a class="nav-link active underline" href="/listings/latest">Listings</a>
                         </li>
                     </ul>
                     {% endif %}
@@ -67,8 +68,7 @@
         </nav>
         
         <div class="body">
-            {% block body %}
-            {% endblock %}
+            
             <!-- Modal to add funds -->
             <div class="modal fade" id="fundsModal" tabindex="-1" aria-labelledby="fundsModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -107,8 +107,10 @@
                 </div>
                 </div>
             </div>
-
+            {% block body %}
+            {% endblock %}
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>
