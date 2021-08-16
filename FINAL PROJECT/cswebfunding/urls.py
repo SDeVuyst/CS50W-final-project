@@ -13,6 +13,8 @@ urlpatterns = [
     path("addfunds/<str:amount>", views.addfunds, name="addfunds"),
     path("profile/<int:id>", views.profile, name="profile"),
     path("listings/<str:filter>", views.listings, name="listings"),
+    # API 
     path("donate", views.donate, name="donate"),
-    path('comment', views.comment, name="comment")
+    path('comment', views.comment, name="comment"),
+    path('removecomment', views.removecomment, name="removecomment"),
 ]

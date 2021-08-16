@@ -27,29 +27,32 @@
         </div>
         <!-- Progress bar  -->
         <div class="row">
-            <!-- Message for user -->
-            {% if message %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endif %}
+            <div hidden id="commentsuccess" class="alert alert-success" role="alert">
+                Commented Successfully!
+            </div>
+            <div hidden id="donationsuccess" class="alert alert-success" role="alert"></div>
             <!-- Actual progress bar -->
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
+                <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
                     {% if not listing.get_percentage < 20 %}
-                    <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                    <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
                     {% endif %}
                 </div>
                 {% if not listing.donated %}
-                <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                <span class="lead center">$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
                 {% endif %}
                 {% if listing.get_percentage < 20 and listing.donated != 0 %}
-                <span class="lead center">${{ listing.donated }} of ${{ listing.goal }} collected</span>
+                <span class="lead center">$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
                 {% endif %}
             </div>
-            <!-- Button that opens up modal to donate -->
-            <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
+           
         </div>
+        <hr>
+        <!-- Button that opens up modal to donate -->
+        <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
+        <!-- TODO -->
+        <a class="btn btn-outline-dark my-2" href="#" role="button">Follow Listing</a>
+
         <hr>
         <!-- Create Comment -->
         <div class="row">
@@ -57,29 +60,49 @@
             <div hidden id="emptycommentalert" class="alert alert-danger" role="alert">
                 Comment cannot be empty!
             </div>
-            <!-- Form to write and submit comment -->
-            <form id="commentform" action="/comment" method="post">
-                {% csrf_token %}
-                <div class="input-group">
-                    <span class="input-group-text">New Comment</span>
-                    <textarea required="required" class="form-control" aria-label="With textarea" name="content"></textarea>
-                    <input hidden value="{{ listing.id }}" name="id">
-                    <span onclick="submitcommentform()" class="input-group-addon btn btn-outline-dark commentsubmitbutton">Submit</span>
-                </div>
-            </form>
+            <!-- write and submit comment -->
+            <div class="input-group">
+                <span class="input-group-text">New Comment</span>
+                <textarea id="content" required="required" class="form-control" aria-label="With textarea" name="content"></textarea>
+                <span onclick="comment({{ listing.id }})" class="input-group-addon btn btn-outline-dark commentsubmitbutton">Submit</span>
+            </div>
         </div>
         <hr>
         <!-- Comment section -->
-        <div>
+        <div class="container">
             <p class="lead">COMMENTS</p>
-        </div>
-    </div>
+            <div hidden id="commentalert" class="alert alert-info" role="alert">
+                Your comment has been removed.
+            </div>
 
+        <!-- Credit to https://bbbootstrap.com/snippets/bootstrap-comments-list-font-awesome-icons-and-toggle-button-91650380 -->
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    {% csrf_token %}
+
+                    {% for comment in comments %}
+
+                    <div class="card p-3 mt-2" id="comment{{ comment.id }}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center"> <img src="{{ comment.user.photo.url }}" width="50" class="user-img rounded-circle me-3"> <span><small class="lead text-primary">{{ comment.user.username }}</small> <small class="lead">{{ comment.content }}</small></span> </div> <small>{{ comment.date }}</small>
+                        </div>
+                        {% if user == comment.user %} 
+                        <div class="action d-flex justify-content-between mt-2 align-items-center">
+                            <div class="reply px-4"><small class="removecomment" onclick="removecomment({{ comment.id }})">Remove</small></div>
+                            <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
     <!-- Modal to donate -->
     <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/donate" method="post" onsubmit="return checkexceedsgoal({{ listing.goal }}, {{ listing.donated }})">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -97,23 +120,13 @@
                     <span class="input-group-text">$</span>
                     <input name="donateamount" id="donateamount" type="number" class="form-control" autocomplete="off" aria-label="Amount" min="1" max="{{ user.balance }}">
                 </div>
-                
-                <div id="donatemodalmessagediv" hidden>
-                    <hr>
-                    <p id="donatemodalmessage"></p>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <input onclick="clicked='confirm';" type="submit" class="btn btn-outline-dark my-2" value="Yes">
-                </div>
-                <input name="listingid" id="listingid" hidden value="{{ listing.id }}">
-                {% csrf_token %}
             </div>
     
             <!-- Modal Footer -->
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <input onclick="clicked='not confirmed'"  type="submit" class="btn btn-outline-dark my-2" value="Donate">
+            <input onclick="donate({{ listing.id }})" type="submit" class="btn btn-outline-dark my-2" value="Donate">
 
-            </form>
             </div>
     
         </div>

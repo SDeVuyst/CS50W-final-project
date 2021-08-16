@@ -48,7 +48,7 @@
                         </li>
                     </ul>
                     <span class="navbar-text" id="balance">
-                        Current balance: ${{ user.balance }}
+                        Current balance: $<span id="balanceamount">{{ user.balance }}</span>
                     </span>
                     <!-- User is not logged in, only show log in, register and all listings -->
                     {% else %}

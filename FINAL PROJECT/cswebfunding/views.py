@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 
 from decimal import Decimal
+import json
 
 from .models import User, Listing, Donation, Comment
 
@@ -126,29 +127,22 @@ def newlisting(request):
         return render(request, "cswebfunding/index.html")
 
 
-def listingfunc(request, id, extra=''):
+def listingfunc(request, id):
 
     try:
         listing = Listing.objects.get(id=id)
     except ObjectDoesNotExist:
         raise Exception('Listing does not exist')
 
-    if extra == '':
-        # Add 1 popularity per view
-        listing.popularity += 1
-        listing.save()
+    # Add 1 popularity per view
+    listing.popularity += 1
+    listing.save()
 
-    # Popularity already added in comment()
-    elif type(extra) == Decimal:
-        extra = f"You have succesfully donated ${extra}!"
-
-    elif extra == "comment":
-        extra = "Commented Successfully!"
-    
+    # Get all comments on that listing
+    comments = Comment.objects.filter(listing=listing)
 
     return render(request, "cswebfunding/listing.html", {
         "listing": listing,
-        "message": extra
     })
 
 
@@ -244,12 +238,12 @@ def donate(request):
 
     if request.method == "POST":
         
-        # Get amount and listing from form
-        user = request.user
-        amount = Decimal(request.POST["donateamount"])
-        listingid = request.POST["listingid"]
         try:
+            data = json.loads(request.body.decode('utf-8'))
+            listingid = data["listingid"]
+            amount = Decimal(data["amount"])
             listing = Listing.objects.get(id=listingid)
+            user = request.user
         except:
             raise Exception("Listing Doesn't exist")
 
@@ -273,18 +267,20 @@ def donate(request):
         listing.donated += amount
         listing.save()
 
-        return listingfunc(request, listingid, amount)
+        return JsonResponse({"Message": "Donation registered!"}, status=200)
 
     else:
-        raise Exception('WrongRequest')
+        raise Exception('Wrong Request method')
 
 
 def comment(request):
 
     if request.method == 'POST':
         try:
-            id = request.POST["id"]
-            content = request.POST["content"]
+            data = json.loads(request.body.decode('utf-8'))
+
+            id = data["listingid"]
+            content = data["content"]
             listing = Listing.objects.get(id=id)
             
             # Add 5 popularity per comment
@@ -302,7 +298,27 @@ def comment(request):
         )
         comment.save()
 
-        return listingfunc(request, id, 'comment')
+        return JsonResponse({"Message": "Comment added"}, status=200)
 
     else: 
+        raise Exception("Wrong request method")
+
+
+def removecomment (request):
+
+    if request.method == 'POST':
+
+        # Get the commentid
+        data = json.loads(request.body.decode('utf-8'))
+        id = data["commentid"]
+        print(id)
+
+        # Delete the comment
+        try:
+            Comment.objects.get(id=id).delete()
+        except:
+            raise Exception("Comment not found...")
+
+        return JsonResponse({"Message": "Comment removed"}, status=200)
+    else:
         raise Exception("Wrong request method")

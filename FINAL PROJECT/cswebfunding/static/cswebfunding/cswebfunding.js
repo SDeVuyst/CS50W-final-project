@@ -146,6 +146,7 @@ function setdatelisting () {
 
 };
 
+
 function checkexceedsgoal (goal, donated) {
 
     // user clicked confirmation button, and wants to donate extra
@@ -185,15 +186,123 @@ function checkexceedsgoal (goal, donated) {
 }
 
 
-function submitcommentform () {
-    var form = document.getElementById("commentform");
+function comment (listingid) {
+    // Define data to send to backend
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const content = document.getElementById("content").value;
 
-    // Comment cannot be empty
-    if (form.checkValidity()) {
-        form.submit();
-    } else {
-        // Comment is empty, display error
-        console.error('Comment cannot be empty');
+    // Comment cannot be empty!
+    if (!content) {
+        console.error('Empty comment!')
         document.getElementById("emptycommentalert").hidden = false;
+    } else {
+
+        let data = {
+            listingid : listingid,
+            content : content
+        }
+    
+        // Fetch to backend 
+        fetch(`/comment`, {
+            method: 'post',
+            headers: {'X-CSRFToken': csrftoken},
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(message => {
+            console.log(message);
+            
+            // Show success message
+            document.getElementById("commentsuccess").hidden = false;
+
+            // Show users comment
+            //TODO
+
+        })
+    }
+}
+
+function removecomment (commentid) {
+
+    // Define data to send to backend
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let data = {
+        commentid : commentid
+    }
+
+    // Fetch to backend 
+    fetch(`/removecomment`, {
+        method: 'post',
+        headers: {'X-CSRFToken': csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(message => {
+        console.log(message);
+
+        // Comment has been deleted!
+
+        // Delete comment for user
+        document.getElementById(`comment${commentid}`).remove();
+
+        // Show message
+        document.getElementById("commentalert").hidden = false;
+    })
+}
+
+function donate (listingid) {
+    // Define data to send to backend
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const donateamount = document.getElementById("donateamount").value;
+
+    // Check if donation exceeds goal
+    if (!content) {
+        // TODO
+    } else {
+
+        let data = {
+            listingid : listingid,
+            amount : donateamount
+        }
+    
+        // Fetch to backend 
+        fetch(`/donate`, {
+            method: 'post',
+            headers: {'X-CSRFToken': csrftoken},
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(message => {
+            console.log(message);
+
+            // Close modal 
+            var modal = bootstrap.Modal.getInstance(DonateModal)
+            modal.hide()
+            
+            // Show success message
+            donationsuccess = document.getElementById("donationsuccess");
+            donationsuccess.innerHTML = `You have successfully donated $${donateamount}!`
+            donationsuccess.hidden = false;
+
+            // remove donation from funds
+            document.getElementById("balanceamount").innerHTML -= donateamount;
+
+            // add donation to progress bar
+            // Change Label
+            var progressspanelement = document.getElementById("progressamount")
+            var currentamount = parseFloat(progressspanelement.innerHTML)
+
+            const newamount = currentamount + parseFloat(donateamount)
+
+            progressspanelement.innerHTML = newamount
+
+            // Visual progressbar
+            progressbar = document.getElementById("progressbar")
+            progressbar.setAttribute("aria-valuenow", newamount)
+            maxamount = progressbar.getAttribute("aria-valuemax")
+            percentage = (100*newamount) / maxamount;
+            progressbar.setAttribute("style", `width: ${percentage | 0}%`)
+
+        })
     }
 }
