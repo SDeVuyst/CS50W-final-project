@@ -46,6 +46,9 @@
                         <li class="nav-item">
                             <a class="nav-link active underline" onclick="hidemodalmessage()" data-bs-toggle="modal" data-bs-target="#fundsModal">Add funds</a>
                         </li>
+                        <li class="nav-item">
+                            <a <a class="nav-link active underline"href="{% url 'newlisting' %}">New Listing</a>
+                        </li>
                     </ul>
                     <span class="navbar-text" id="balance">
                         Current balance: $<span id="balanceamount">{{ user.balance }}</span>

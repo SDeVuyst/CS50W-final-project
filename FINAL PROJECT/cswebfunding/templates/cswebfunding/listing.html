@@ -27,15 +27,12 @@
         </div>
         <!-- Progress bar  -->
         <div class="row">
-            <div hidden id="commentsuccess" class="alert alert-success" role="alert">
-                Commented Successfully!
-            </div>
             <div hidden id="donationsuccess" class="alert alert-success" role="alert"></div>
             <!-- Actual progress bar -->
             <div class="progress">
                 <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{ listing.donated }}" aria-valuemin="0" aria-valuemax="{{ listing.goal }}" style="width: {% widthratio listing.donated listing.goal 100 %}%;">
                     {% if not listing.get_percentage < 20 %}
-                    <span class="lead">{% if listing.donated > listing.goal %} &#10004; {% endif %}$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
+                    <span id="checkmark" class="lead">{% if listing.donated >= listing.goal %} &#10004; {% endif %}$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
                     {% endif %}
                 </div>
                 {% if not listing.donated %}
@@ -73,6 +70,9 @@
             <p class="lead">COMMENTS</p>
             <div hidden id="commentalert" class="alert alert-info" role="alert">
                 Your comment has been removed.
+            </div>
+            <div hidden id="commentsuccess" class="alert alert-success" role="alert">
+                Commented Successfully!
             </div>
 
         <!-- Credit to https://bbbootstrap.com/snippets/bootstrap-comments-list-font-awesome-icons-and-toggle-button-91650380 -->

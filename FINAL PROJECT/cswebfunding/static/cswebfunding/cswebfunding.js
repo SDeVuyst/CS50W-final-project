@@ -1,61 +1,96 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // dynamically change preview on input of new listing
-    var titleform = document.getElementById("titleform");
-    var descriptionform = document.getElementById("descriptionform");
-    var goalform = document.getElementById("goalform");
-    var dateform = document.getElementById("dateform");
+    try {
+        var titleform = document.getElementById("titleform");
+        var descriptionform = document.getElementById("descriptionform");
+        var goalform = document.getElementById("goalform");
+        var dateform = document.getElementById("dateform");
+        var formFile = document.getElementById("formFile");
 
-        // Title
-        titleform.oninput = evt => {
-            var title = document.getElementById("newlistingtitle");
-            title.innerHTML = titleform.value;
-        }
-
-        // Description
-        descriptionform.oninput = evt => {
-            var description = document.getElementById("newlistingdescription");
-            description.innerHTML = descriptionform.value;
-        }
-
-        // Goal
-        goalform.oninput = evt => {
-            var goal = document.getElementById("newlistinggoal");
-            goal.innerHTML = goalform.value;
-        }
-
-        // Date
-        dateform.oninput = evt => {
-            var date = document.getElementById("newlistingdate");
-
-            var today = new Date();
-            var dd = today.getDate(); // Project must be open for at least a day
-            var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
-            var yyyy = today.getFullYear();
-
-            if(dd<10){
-                dd='0'+dd
-            } 
-            if(mm<10){
-                mm='0'+mm
-            } 
-
-            mindate = yyyy+'-'+mm+'-'+dd;
-            date.innerHTML = `${mindate} - ${dateform.value}`;
-        }
-
-        // Photo
-        formFile.onchange = evt => {
-            const [file] = formFile.files
-            if (file) {
-                output.src = URL.createObjectURL(file)
+            // Title
+            titleform.oninput = evt => {
+                var title = document.getElementById("newlistingtitle");
+                title.innerHTML = titleform.value;
             }
-        };  
-    
-    // This if for donation modal, to check if user confirms the donation
-    var clicked
-});
 
+            // Description
+            descriptionform.oninput = evt => {
+                var description = document.getElementById("newlistingdescription");
+                description.innerHTML = descriptionform.value;
+            }
+
+            // Goal
+            goalform.oninput = evt => {
+                var goal = document.getElementById("newlistinggoal");
+                goal.innerHTML = goalform.value;
+            }
+
+            // Date
+            dateform.oninput = evt => {
+                var date = document.getElementById("newlistingdate");
+
+                var today = new Date();
+                var dd = today.getDate(); // Project must be open for at least a day
+                var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+                var yyyy = today.getFullYear();
+
+                if (dd < 10) {
+                    dd = '0' + dd;
+                } 
+                if (mm < 10) {
+                    mm = '0' + mm;
+                } 
+
+                mindate = yyyy + '-' + mm + '-' + dd;
+                date.innerHTML = `${mindate} - ${dateform.value}`;
+            }
+
+            // Photo
+            formFile.onchange = evt => {
+                const [file] = formFile.files;
+                if (file) {
+                    output.src = URL.createObjectURL(file);
+                }
+            }
+    }
+    catch (err) {
+        console.log('Not on new listing page...');
+    }
+    
+
+    // dynamically change preview on registration
+    try {
+        var username = document.getElementById("username");
+        var aboutyou = document.getElementById("aboutyou");
+    
+            // username
+            username.oninput = evt => {
+                var usernameheader = document.getElementById("usernameheader");
+                usernameheader.innerHTML = username.value;
+            }
+
+            // about you
+            aboutyou.oninput = evt => {
+                var aboutyouheader = document.getElementById('aboutyouheader');
+                aboutyouheader.innerHTML = aboutyou.value;
+            }
+
+            // Photo
+            formFile.onchange = evt => {
+                console.log("change");
+                const [file] = formFile.files;
+                if (file) {
+                    imageheader.src = URL.createObjectURL(file);
+                }
+            }
+    } 
+    catch (err) {
+        console.log('not on registration page...')
+    }
+    
+
+});
 
 function addfunds () {
 
@@ -183,7 +218,7 @@ function checkexceedsgoal (goal, donated) {
         return true;
     }
 
-}
+};
 
 
 function comment (listingid) {
@@ -285,9 +320,12 @@ function comment (listingid) {
 
             // append everything to existing div
             document.getElementById('newcommentdiv').appendChild(div1);
+
+            // Empty comment textarea
+            document.getElementById('content').value = '';
         })
     }
-}
+};
 
 
 function removecomment (commentid) {
@@ -316,7 +354,7 @@ function removecomment (commentid) {
         // Show message
         document.getElementById("commentalert").hidden = false;
     })
-}
+};
 
 
 function donate (listingid) {
@@ -324,54 +362,47 @@ function donate (listingid) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const donateamount = document.getElementById("donateamount").value;
 
-    // Check if donation exceeds goal
-    if (!content) {
-        // TODO
-    } else {
-
-        let data = {
-            listingid : listingid,
-            amount : donateamount
-        }
-    
-        // Fetch to backend 
-        fetch(`/donate`, {
-            method: 'post',
-            headers: {'X-CSRFToken': csrftoken},
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(message => {
-            console.log(message);
-
-            // Close modal 
-            var modal = bootstrap.Modal.getInstance(DonateModal)
-            modal.hide()
-            
-            // Show success message
-            donationsuccess = document.getElementById("donationsuccess");
-            donationsuccess.innerHTML = `You have successfully donated $${donateamount}!`
-            donationsuccess.hidden = false;
-
-            // remove donation from funds
-            document.getElementById("balanceamount").innerHTML -= donateamount;
-
-            // add donation to progress bar
-            // Change Label
-            var progressspanelement = document.getElementById("progressamount")
-            var currentamount = parseFloat(progressspanelement.innerHTML)
-
-            const newamount = currentamount + parseFloat(donateamount)
-
-            progressspanelement.innerHTML = newamount
-
-            // Visual progressbar
-            progressbar = document.getElementById("progressbar")
-            progressbar.setAttribute("aria-valuenow", newamount)
-            maxamount = progressbar.getAttribute("aria-valuemax")
-            percentage = (100*newamount) / maxamount;
-            progressbar.setAttribute("style", `width: ${percentage | 0}%`)
-
-        })
+    let data = {
+        listingid : listingid,
+        amount : donateamount
     }
-}
+
+    // Fetch to backend 
+    fetch(`/donate`, {
+        method: 'post',
+        headers: {'X-CSRFToken': csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(message => {
+        console.log(message);
+
+        // Close modal 
+        var modal = bootstrap.Modal.getInstance(DonateModal)
+        modal.hide()
+        
+        // Show success message
+        donationsuccess = document.getElementById("donationsuccess");
+        donationsuccess.innerHTML = `You have successfully donated $${donateamount}!`
+        donationsuccess.hidden = false;
+
+        // remove donation from funds
+        document.getElementById("balanceamount").innerHTML -= donateamount;
+
+        // add donation to progress bar
+        // Change Label
+        var progressspanelement = document.getElementById("progressamount")
+        var currentamount = parseFloat(progressspanelement.innerHTML)
+
+        const newamount = currentamount + parseFloat(donateamount)
+
+        // Visual progressbar
+        progressbar = document.getElementById("progressbar")
+        progressbar.setAttribute("aria-valuenow", newamount)
+        maxamount = progressbar.getAttribute("aria-valuemax")
+        percentage = (100*newamount) / maxamount;
+        progressbar.setAttribute("style", `width: ${percentage | 0}%`)
+
+    })
+
+};

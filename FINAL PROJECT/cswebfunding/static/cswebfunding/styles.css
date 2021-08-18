@@ -211,3 +211,20 @@ nav {
   cursor: pointer;
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.authorpreview p {
+  font-size: 30px;
+}
+
+.authorpreview h5 {
+  font-size: 25px;
+}
+
+.authorpreview img {
+  width: 200px;
+  height: 200px;
+}
+
+.authorpreview {
+  transform: translate(-15%, 10%);
+}
