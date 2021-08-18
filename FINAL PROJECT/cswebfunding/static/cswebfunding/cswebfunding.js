@@ -210,17 +210,85 @@ function comment (listingid) {
         })
         .then(response => response.json())
         .then(message => {
-            console.log(message);
+            console.log(message.message);
             
             // Show success message
             document.getElementById("commentsuccess").hidden = false;
 
-            // Show users comment
-            //TODO
+            // Create a new comment
+            var div1 = document.createElement('div');
+            div1.setAttribute('class', 'card p-3 mt-2');
+            div1.setAttribute('id', `comment${message.commentid}`);
 
+            var div2 = document.createElement('div');
+            div2.setAttribute('class', 'd-flex justify-content-between align-items-center');
+            
+            div1.appendChild(div2);
+
+            var div3 = document.createElement('div');
+            div3.setAttribute('class', 'user d-flex flex-row align-items-center');
+
+            div2.appendChild(div3);
+
+            var img = document.createElement('img');
+            img.setAttribute('src', message.imgsource);
+            img.setAttribute('width', '50');
+            img.setAttribute('class', 'user-img rounded-circle me-3');
+
+            div3.appendChild(img);
+
+            var emptyspan = document.createElement('span');
+
+            div3.appendChild(emptyspan);
+
+
+            var small1 = document.createElement('small');
+            small1.setAttribute('class', 'lead text-primary');
+            small1.innerHTML = `${message.username} `;
+
+            emptyspan.appendChild(small1);
+
+            var small2 = document.createElement('small');
+            small2.setAttribute('class', 'lead');
+            small2.innerHTML = message.comment;
+
+            emptyspan.appendChild(small2);
+
+            // TODO: fix display instead of 2021-08-18 --> Aug. 18, 2021
+            var small3 = document.createElement('small');
+            var date = Date.parse(message.date)
+            const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
+            const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date)
+            const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)
+
+            small3.innerHTML = `${mo}. ${da}, ${ye}`;
+
+            div2.appendChild(small3);
+
+            var div4 = document.createElement('div');
+            div4.setAttribute('class', 'action d-flex justify-content-between mt-2 align-items-center');
+
+            div1.appendChild(div4);
+
+            var div5 = document.createElement('div');
+            div5.setAttribute('class', 'reply px-4');
+
+            div4.appendChild(div5)
+
+            var small4 = document.createElement('small');
+            small4.setAttribute('class', 'removecomment');
+            small4.setAttribute('onclick', `removecomment(${message.commentid})`);
+            small4.innerHTML = 'Remove';
+
+            div5.appendChild(small4);
+
+
+            // append everything to existing div
+            document.getElementById('newcommentdiv').appendChild(div1);
         })
     }
 }
+
 
 function removecomment (commentid) {
 
@@ -238,7 +306,7 @@ function removecomment (commentid) {
     })
     .then(response => response.json())
     .then(message => {
-        console.log(message);
+        console.log(message.message);
 
         // Comment has been deleted!
 
@@ -249,6 +317,7 @@ function removecomment (commentid) {
         document.getElementById("commentalert").hidden = false;
     })
 }
+
 
 function donate (listingid) {
     // Define data to send to backend

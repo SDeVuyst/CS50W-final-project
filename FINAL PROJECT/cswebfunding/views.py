@@ -139,10 +139,11 @@ def listingfunc(request, id):
     listing.save()
 
     # Get all comments on that listing
-    comments = Comment.objects.filter(listing=listing)
+    comments = Comment.objects.filter(listing=listing).order_by('-id')
 
     return render(request, "cswebfunding/listing.html", {
         "listing": listing,
+        "comments": comments
     })
 
 
@@ -298,7 +299,13 @@ def comment(request):
         )
         comment.save()
 
-        return JsonResponse({"Message": "Comment added"}, status=200)
+        return JsonResponse({"message": "Comment added",
+                             "imgsource": request.user.photo.url,
+                             "username": request.user.username,
+                             "comment": content,
+                             "date": comment.date,
+                             "commentid": comment.id
+                             }, status=200)
 
     else: 
         raise Exception("Wrong request method")

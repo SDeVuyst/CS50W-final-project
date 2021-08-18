@@ -79,7 +79,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     {% csrf_token %}
-
+                    <div id="newcommentdiv"></div>
                     {% for comment in comments %}
 
                     <div class="card p-3 mt-2" id="comment{{ comment.id }}">
@@ -89,7 +89,6 @@
                         {% if user == comment.user %} 
                         <div class="action d-flex justify-content-between mt-2 align-items-center">
                             <div class="reply px-4"><small class="removecomment" onclick="removecomment({{ comment.id }})">Remove</small></div>
-                            <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
                         </div>
                         {% endif %}
                     </div>
