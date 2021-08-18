@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="{% url 'index' %}">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <!-- Credit to https://www.flaticon.com/free-icon/heart_838618?term=donat&related_id=838618 -->
@@ -37,10 +37,10 @@
                                 Listings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/listings/latest">All listings</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listings' filter='latest' %}">All listings</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/listings/goodcauses">Good Causes</a></li>
-                                <li><a class="dropdown-item" href="/listings/projects">Projects</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listings' filter='goodcauses' %}">Good Causes</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listings' filter='projects' %}">Projects</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -62,7 +62,7 @@
                             <a class="nav-link active underline" href="{% url 'register' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active underline" href="/listings/latest">Listings</a>
+                            <a class="nav-link active underline" href="{% url 'listings' filter='latest' %}">Listings</a>
                         </li>
                     </ul>
                     {% endif %}
