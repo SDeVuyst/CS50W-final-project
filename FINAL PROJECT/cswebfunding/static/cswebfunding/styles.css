@@ -52,6 +52,11 @@ nav {
 
 .navbar li a {
   color: midnightblue !important;
+  font-size: large;
+}
+
+.midnightblue {
+  color: midnightblue !important;
 }
 
 .margin-bottom {
@@ -245,7 +250,6 @@ nav {
 }
 
 .hero h1 {
-  margin: 0;
   font-size: 48px;
   font-weight: 700;
   color: #012970;
@@ -253,29 +257,13 @@ nav {
 
 .hero h2 {
   color: #444444;
-  margin: 15px 0 0 0;
+  margin: 15px 15px 15px 0;
   font-size: 26px;
 }
 
-.hero .btn-get-started {
-  margin-top: 30px;
-  line-height: 0;
-  padding: 15px 40px;
-  border-radius: 4px;
-  transition: 0.5s;
-  color: #fff;
-  background: #4154f1;
-  box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
+.getstarted {
+  margin-top: 10px;
 }
-
-.hero .btn-get-started span {
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 1px;
-  text-decoration: none;
-}
-
 
 .hero .hero-img {
   text-align: right;
@@ -317,3 +305,55 @@ nav {
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Animations for index page */
+
+/* Adapted from w3.css  */
+.animate-bottom {
+  position: relative;
+  -webkit-animation: animatebottom 1.5s;
+  animation: animatebottom 1.5s;
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -75px;
+    opacity: 0;
+  } to { 
+    bottom: 0px; 
+    opacity: 1;
+}}
+
+@keyframes animatebottom {
+  from {
+    bottom: -75px;
+    opacity: 0
+  } to {
+    bottom: 0;
+    opacity: 1;
+}}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(1.25, 1.25);
+    opacity: 0;
+  } to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+.delay1 {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.delay2 {
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.img-fluid {
+  position: relative;
+  -webkit-animation: zoom-in 1.5s;
+  animation: zoom-in 1.5s;
+}
