@@ -1,109 +1,110 @@
 {% extends "cswebfunding/layout.html" %}
 
 {% block body %}
-<h2 class="center">Create a new listing</h2>
-<div class="container">
-    <div class="row">
-        <!-- Show a preview of what the listing will look like -->
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
-            <div class="card shadow center">
-                <div class="card-body text-center">
-                    <h4 id="newlistingtitle">Title</h4>
-                    <div class="imageitem">
-                        <img id="output" class="card-img-top" src="media/default-listing.jpg" alt="default listing image">
+<div class="pageload">
+    <h2 class="center">Create a new listing</h2>
+    <div class="container">
+        <div class="row">
+            <!-- Show a preview of what the listing will look like -->
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
+                <div class="card shadow center">
+                    <div class="card-body text-center">
+                        <h4 id="newlistingtitle">Title</h4>
+                        <div class="imageitem">
+                            <img id="output" class="card-img-top" src="media/default-listing.jpg" alt="default listing image">
+                        </div>
+                        <ul class="list-inline mt-3">
+                            <li class="list-inline-item" id="newlistingdate">28/10/2021 - 28/10/2025</li>
+                        </ul>
+                        <hr>
+                        <p>$0 donated - $<span id="newlistinggoal">300</span> requested</p>
+                        <p id="newlistingdescription" class="lead">This is a short description of your listing.</p>
+                        <a class="btn btn-outline-dark my-2" href="#" role="button">Read more...</a>
                     </div>
-                    <ul class="list-inline mt-3">
-                        <li class="list-inline-item" id="newlistingdate">28/10/2021 - 28/10/2025</li>
-                    </ul>
-                    <hr>
-                    <p>$0 donated - $<span id="newlistinggoal">300</span> requested</p>
-                    <p id="newlistingdescription" class="lead">This is a short description of your listing.</p>
-                    <a class="btn btn-outline-dark my-2" href="#" role="button">Read more...</a>
                 </div>
             </div>
-        </div>
-        <div class="col register">
-            <!-- Form to create new listing -->
-            <form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
-                {% csrf_token %}
+            <div class="col register">
+                <!-- Form to create new listing -->
+                <form action="{% url 'newlisting' %}" method="post" id="newlistingform" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                <!-- Title input -->
-                <div class="form-group">
-                    <h5 class="begin lead">Please add a title</h5>
-                    <input id="titleform" required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
-                </div>
+                    <!-- Title input -->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please add a title</h5>
+                        <input id="titleform" required autofocus autocomplete="off" class="form-control" type="text" name="title" placeholder="Title" maxlength="50">
+                    </div>
 
-                <!-- Description input -->
-                <div class="form-group">
-                    <h5 class="begin lead">Please add a description</h5>
-                    <input id="descriptionform" required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
-                </div>
+                    <!-- Description input -->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please add a description</h5>
+                        <input id="descriptionform" required autocomplete="off" class="form-control" type="text" name="description" placeholder="Description" maxlength="256">
+                    </div>
 
-                <!-- Type input -->
-                <div class="row">
-                    <div class="col">
-                        <div required class="form-group">
-                            <h5 class="begin lead">Please select a type</h5>
-                            <div class="form-check begin">
-                                <input required class="form-check-input" type="radio" name="type" id="good_cause" value="goodcause">
-                                <label class="form-check-label" for="good_cause">Good Cause</label>
-                            </div>
-                            <div class="form-check">
-                                <input required class="form-check-input" type="radio" name="type" id="project" value="project">
-                                <label class="form-check-label" for="project">Project</label>
+                    <!-- Type input -->
+                    <div class="row">
+                        <div class="col">
+                            <div required class="form-group">
+                                <h5 class="begin lead">Please select a type</h5>
+                                <div class="form-check begin">
+                                    <input required class="form-check-input" type="radio" name="type" id="good_cause" value="goodcause">
+                                    <label class="form-check-label" for="good_cause">Good Cause</label>
+                                </div>
+                                <div class="form-check">
+                                    <input required class="form-check-input" type="radio" name="type" id="project" value="project">
+                                    <label class="form-check-label" for="project">Project</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- category input -->
-                <div class="form-group">
-                    <h5 class="begin lead">Please select a category</h5>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect01">Category</label>
-                        <select required class="form-select" id="inputGroupSelect01" name="category">
+                    <!-- category input -->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please select a category</h5>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                            <select required class="form-select" id="inputGroupSelect01" name="category">
 
-                            <option selected value="" disabled >Select Category</option>
-                            <option value="1">Art</option>
-                            <option value="2">Comics & Illustration</option>
-                            <option value="3">Design & Tech</option>
-                            <option value="4">Film</option>
-                            <option value="5">Food & Craft</option>
-                            <option value="6">Games</option>
-                            <option value="7">Music</option>
-                            <option value="8">Publishing</option>
-                            <option value="9">Other</option>
+                                <option selected value="" disabled >Select Category</option>
+                                <option value="1">Art</option>
+                                <option value="2">Comics & Illustration</option>
+                                <option value="3">Design & Tech</option>
+                                <option value="4">Film</option>
+                                <option value="5">Food & Craft</option>
+                                <option value="6">Games</option>
+                                <option value="7">Music</option>
+                                <option value="8">Publishing</option>
+                                <option value="9">Other</option>
 
-                        </select>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Goal input -->
-                <div class="form-group">
-                    <h5 class="begin lead">Please add a goal</h5>
-                    <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal">
+                    <!-- Goal input -->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please add a goal</h5>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input id="goalform" required autocomplete="off" class="form-control" type="number" name="goal" min="10" max="10000000" placeholder="Goal">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Main image input -->
-                <div class="form-group">
-                    <h5 class="begin lead">Please add an image</h5>
-                    <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
-                </div>
+                    <!-- Main image input -->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please add an image</h5>
+                        <input required name="photo" class="form-control" type="file" id="formFile" accept="image/*">
+                    </div>
 
-                <!-- Final date input starting from today and maximum 5 years from now-->
-                <div class="form-group">
-                    <h5 class="begin lead">Please select a final date</h5>
-                    <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date">
-                </div>
+                    <!-- Final date input starting from today and maximum 5 years from now-->
+                    <div class="form-group">
+                        <h5 class="begin lead">Please select a final date</h5>
+                        <input id="dateform" onclick="setdatelisting(); this.onclick=null;" required class="form-control" type="date" name="final_date">
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing" id="newlistingsubmit">
+                </form>
                 
-                <!-- Submit button -->
-                <input autocomplete="off" class="btn btn-outline-dark my-2" type="submit" value="Create new listing" id="newlistingsubmit">
-            </form>
-            
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

@@ -140,6 +140,7 @@ nav {
   animation-timing-function: ease-in;
   animation-duration: 0.75s;
 }
+
 @keyframes animateBar {
   0% {transform: translateX(-100%);}
   100% {transform: translateX(0);}
@@ -160,9 +161,42 @@ nav {
 .card {
   border: none;
   box-shadow: 5px 6px 6px 2px #e9ecef;
-  border-radius: 4px
+  border-radius: 4px;
+  background: white;
+  animation: reverseslidehover 0.5s;
+  animation-fill-mode: both;
 }
 
+.card:hover {
+  animation: slidehover 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes slidehover {
+  from {
+    top: 0px;
+  } to {
+    top: -10px;
+  }
+}
+
+@keyframes reverseslidehover {
+  from {
+    top: -10px;
+  } to {
+    top: 0px;
+  }
+}
+
+.notunderline {
+  text-decoration: none;
+  color: inherit;
+}
+
+.notunderline:hover {
+  text-decoration: none;
+  color:inherit;
+}
 .dots {
   height: 4px;
   width: 4px;
@@ -356,4 +390,18 @@ nav {
   position: relative;
   -webkit-animation: zoom-in 1.5s;
   animation: zoom-in 1.5s;
+}
+
+.pageload {
+  animation: transitionin 1s
+}
+
+@keyframes transitionin {
+  from {
+    opacity: 0;
+    transform: translateY(7.5%);
+  } to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

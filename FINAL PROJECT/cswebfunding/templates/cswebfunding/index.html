@@ -12,9 +12,16 @@
           <h2 class="animate-bottom delay1">Cswebfunding is a site where you can support other people's dreams or have your own dream realised</h2>
           <div>
             <div class="text-center text-lg-start getstarted animate-bottom delay2">
-              <a href="#about" class="btn btn-outline-dark my-2 center">
+              
+              {% if not user.is_authenticated %} 
+                <a href="{% url 'login' %}" class="btn btn-outline-dark my-2 center">
                 <span class="lead">Get Started</span>
-              </a>
+                </a>
+              {% else %}
+                <a href="{% url 'listings' filter='latest' %}" class="btn btn-outline-dark my-2 center">
+                <span class="lead">See listings</span>
+                </a>
+              {% endif %}
             </div>
           </div>
         </div>

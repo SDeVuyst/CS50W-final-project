@@ -168,11 +168,11 @@ def listings(request, filter):
         title = "Projects"
 
     elif filter == 'latest':
-        listings = Listing.objects.all().order_by('-id')
-        title = "Latest Listings"
+        listings = Listing.objects.all().order_by('id')
+        title = "Oldest Listings"
 
     elif filter == 'newest':
-        listings = Listing.objects.all().order_by('id')
+        listings = Listing.objects.all().order_by('-id')
         title = "Newest Listings"
 
     elif filter == 'highest':
@@ -218,6 +218,10 @@ def listings(request, filter):
     elif filter == 'other':
         listings = Listing.objects.filter(category=9).order_by('-id')
         title = "Other Listings"
+    
+    elif filter =='popularity':
+        listings = Listing.objects.all().order_by('popularity')
+        title = "Popularity"
         
     else: 
         return render(request, "cswebfunding/index.html")

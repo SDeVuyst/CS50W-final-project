@@ -289,7 +289,6 @@ function comment (listingid) {
 
             emptyspan.appendChild(small2);
 
-            // TODO: fix display instead of 2021-08-18 --> Aug. 18, 2021
             var small3 = document.createElement('small');
             var date = Date.parse(message.date)
             const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
@@ -375,7 +374,7 @@ function donate (listingid) {
     })
     .then(response => response.json())
     .then(message => {
-        console.log(message);
+        console.log(message.Message);
 
         // Close modal 
         var modal = bootstrap.Modal.getInstance(DonateModal)
@@ -395,7 +394,7 @@ function donate (listingid) {
         var currentamount = parseFloat(progressspanelement.innerHTML)
 
         const newamount = currentamount + parseFloat(donateamount)
-
+        progressspanelement.innerHTML = newamount
         // Visual progressbar
         progressbar = document.getElementById("progressbar")
         progressbar.setAttribute("aria-valuenow", newamount)

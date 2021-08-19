@@ -5,6 +5,7 @@
 
 
 <!-- inspired on https://bootsnipp.com/20snippets/01pbj -->
+<div class="pageload">
 <h3 class="center">{{ title }}</h3>
 
 <div class="dropdown">
@@ -13,7 +14,7 @@
   </a>
 
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><a class="dropdown-item" href="{% url 'listings' filter='latest' %}">Latest first</a></li>
+    <li><a class="dropdown-item" href="{% url 'listings' filter='latest' %}">Oldest first</a></li>
     <li><a class="dropdown-item" href="{% url 'listings' filter='newest' %}">Newest first</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="{% url 'listings' filter='highest' %}">Highest goal first</a></li>
@@ -46,15 +47,15 @@
     <div class="row">
       
       {% for listing in listings.object_list %}
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+          <a class="notunderline" {% if user.is_authenticated %} href="{% url 'listing' id=listing.id %}" {% else %} data-bs-toggle="modal" data-bs-target="#AuthenticateModal" {% endif %}>
             <div class="card shadow center">
                 <div class="card-body text-center">
                   <h4>{{ listing.title }}</h4>
                   <div class="imageitem">
                     <!-- User can only click link if logged in -->
-                    <a {% if  user.is_authenticated %} href="{% url 'listing' id=listing.id %}" {% else %} data-bs-toggle="modal" data-bs-target="#AuthenticateModal" {% endif %} >
+                    
                       <img id="output" class="card-img-top" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
-                    </a>
                   </div>
                   <ul class="list-inline mt-3">
                       <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>
@@ -63,9 +64,10 @@
                   <p>${{listing.donated}} donated - ${{ listing.goal }} requested</p>
         
                   <p class="lead">{{ listing.description }}</p>
-                  <a class="btn btn-outline-dark my-2" {% if  user.is_authenticated %} href="{% url 'listing' id=listing.id %}" {% else %} data-bs-toggle="modal" data-bs-target="#AuthenticateModal" {% endif %} role="button">Read more...</a>
+                  <button class="btn btn-outline-dark my-2">Read more...</button>
                 </div>
             </div>
+          </a>
         </div>
       {% endfor %}
     </div>
@@ -128,5 +130,5 @@
 <br><br><br>
 <h4 class="center">No listings found...</h4>
 {% endif %}
-
+</div>
 {% endblock %}

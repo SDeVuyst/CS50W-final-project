@@ -1,7 +1,7 @@
 {% extends "cswebfunding/layout.html" %}
 
 {% block body %}
-
+<div class="pageload">
     <h2 class="center">Login</h2>
 
     {% if message %}
@@ -22,5 +22,5 @@
     </form>
 
     Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+</div>
 {% endblock %}
