@@ -416,18 +416,34 @@ function updatenotifications(data) {
 
     // Create li items per notification
     for (var i=0; i < data.unread_list.length; i++) {
+
         var verb = data.unread_list[i].verb
 
         var li = document.createElement('li');
-        li.setAttribute('class', 'notificationitem');
+        li.setAttribute('class', 'notificationitem lead');
         li.setAttribute('id', data.unread_list[i].id);
 
+        var img = document.createElement('img');
+        img.setAttribute('class', 'round_image');
+        img.setAttribute('class', 'small_noti_img');
+        img.setAttribute('src', data.unread_list[i].data.authorurl);
+
         var a = document.createElement('a');
+        a.setAttribute('href', `/profile/${data.unread_list[i].actor_object_id}`)
         a.setAttribute('onclick', `readnoti(${data.unread_list[i].id})`);
         a.innerHTML = verb;
 
+        var hr = document.createElement('hr');
+        hr.setAttribute('class', 'notidivider')
+
+        li.appendChild(img)
         li.appendChild(a);
         ul.appendChild(li);
+
+        if (i != data.unread_list.length - 1) {
+            li.appendChild(hr);
+        }
+        
     }
 };
 

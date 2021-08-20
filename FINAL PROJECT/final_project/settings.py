@@ -127,3 +127,6 @@ MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Notifications setting
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}

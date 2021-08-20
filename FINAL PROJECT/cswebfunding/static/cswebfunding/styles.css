@@ -107,6 +107,9 @@ nav {
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+.notidivider {
+  margin-bottom: 0;
+}
 
 .center {
   text-align: center;
@@ -124,6 +127,20 @@ nav {
   margin-top: 25px;
   margin-bottom: 25px;
   border: 1px solid black;
+}
+
+.small_noti_img {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  margin-right: 5px;
 }
 
 .square_image {
@@ -206,6 +223,7 @@ nav {
   text-decoration: none;
   color:inherit;
 }
+
 .dots {
   height: 4px;
   width: 4px;
@@ -213,6 +231,10 @@ nav {
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block
+}
+
+.dropdown-large {
+  width: 300px;
 }
 
 .badge {
@@ -232,6 +254,10 @@ nav {
 .notificationitem {
   padding: 5px;
   margin: 5px;
+}
+
+.notificationitem > a {
+  text-decoration: none;
 }
 
 .user-img {

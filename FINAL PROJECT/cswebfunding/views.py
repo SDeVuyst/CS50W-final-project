@@ -275,7 +275,7 @@ def donate(request):
         listing.save()
 
         # Notify recipient
-        notify.send(sender=user, recipient=listing.author, verb=f"{request.user.username} donated ${amount} to your listing!")
+        notify.send(sender=user, recipient=listing.author, verb=f"{request.user.username} donated ${amount} to your listing!", authorurl=user.photo.url)
 
         return JsonResponse({"Message": "Donation registered!"}, status=200)
 
@@ -309,7 +309,7 @@ def comment(request):
         comment.save()
 
         # Notify recipient
-        notify.send(sender=request.user, recipient=listing.author, verb=f"{request.user.username} commented on your listing!")
+        notify.send(sender=request.user, recipient=listing.author, verb=f"{request.user.username} commented on your listing!", authorurl=request.user.photo.url)
 
         return JsonResponse({"message": "Comment added",
                              "imgsource": request.user.photo.url,
