@@ -1,4 +1,6 @@
 {% load static %}
+{% load notifications_tags %}
+{% csrf_token %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,9 +8,14 @@
         <title>{% block title %}CSWEBFUNDING{% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="{% static 'cswebfunding/styles.css' %}" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/1f94265055.js" crossorigin="anonymous"></script>
+        <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
         <meta charset=“UTF-8”>
         <script src="{% static 'cswebfunding/cswebfunding.js' %}"></script>
         <link rel="shortcut icon" href="{% url 'index' %}">
+
+        <!-- Notifications -->
+        {% register_notify_callbacks callbacks='updatenotifications,updatenotificationcount' refresh_period='3' %}
     </head>
     <body>
         <nav class="navbar navbar-expand-lg">
@@ -50,9 +57,27 @@
                             <a class="nav-link active underline" onclick="hidemodalmessage()" data-bs-toggle="modal" data-bs-target="#fundsModal">&#43; Add funds</a>
                         </li>
                     </ul>
+
+                    <!-- Notifications -->
+                    <span class="navbar-text">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="notificationdropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span hidden id="notificationcount" class="badge bg-danger"></span>
+                                <i class="fas fa-bell"></i>
+                            </a>
+                            
+                            <ul id="notify_list" class="dropdown-menu" aria-labelledby="notificationdropdown">
+                                <li id="no_notifications">
+                                    You have no new notifications
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+
                     <span class="navbar-text" id="balance">
                         Current balance: $<span id="balanceamount">{{ user.balance }}</span>
                     </span>
+                    
                     <!-- User is not logged in, only show log in, register and all listings -->
                     {% else %}
                         <li class="nav-item">

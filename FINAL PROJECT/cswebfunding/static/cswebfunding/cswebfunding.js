@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     }
     catch (err) {
-        console.log('Not on new listing page...');
+        console.info('Not on new listing page...');
     }
     
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     } 
     catch (err) {
-        console.log('not on registration page...')
+        console.info('not on registration page...')
     }
     
 
@@ -389,6 +389,7 @@ function donate (listingid) {
         document.getElementById("balanceamount").innerHTML -= donateamount;
 
         // add donation to progress bar
+        // TODO fix label if user donated 2 much, it doesnt get put inside of progressbar
         // Change Label
         var progressspanelement = document.getElementById("progressamount")
         var currentamount = parseFloat(progressspanelement.innerHTML)
@@ -404,4 +405,70 @@ function donate (listingid) {
 
     })
 
+};
+
+
+function updatenotifications(data) {
+    console.info("updated notifications!")
+    // Remove previous notifications and update new ones
+    var ul = document.getElementById('notify_list');
+    document.querySelectorAll('.notificationitem').forEach(e => e.remove());
+
+    // Create li items per notification
+    for (var i=0; i < data.unread_list.length; i++) {
+        var verb = data.unread_list[i].verb
+
+        var li = document.createElement('li');
+        li.setAttribute('class', 'notificationitem');
+        li.setAttribute('id', data.unread_list[i].id);
+
+        var a = document.createElement('a');
+        a.setAttribute('onclick', `readnoti(${data.unread_list[i].id})`);
+        a.innerHTML = verb;
+
+        li.appendChild(a);
+        ul.appendChild(li);
+    }
+};
+
+
+function updatenotificationcount (data) {
+    
+    const count = data.unread_count;
+    var elementcount = document.getElementById('notificationcount')
+
+    // There must be a notification to display
+    if (count <= 0) {
+        elementcount.hidden = true;
+        document.getElementById('no_notifications').hidden = false;
+        
+    } else {
+        // Set notification count
+        elementcount.innerHTML = count;
+        elementcount.hidden = false;
+        document.getElementById('no_notifications').hidden = true;
+    }
+};
+
+
+function readnoti (id) {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let data = {
+        notification_id : id
+    }
+
+    // Fetch to backend 
+    fetch(`/readnoti`, {
+        method: 'post',
+        headers: {'X-CSRFToken': csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(message => {
+        console.log(message.message);
+
+        // Decrement counter for user
+        document.getElementById('notificationcount').innerHTML -= 1;
+
+    })
 };

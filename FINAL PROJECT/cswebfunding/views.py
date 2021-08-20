@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 
+from notifications.signals import notify
+
 from decimal import Decimal
 import json
 
@@ -272,6 +274,9 @@ def donate(request):
         listing.donated += amount
         listing.save()
 
+        # Notify recipient
+        notify.send(sender=user, recipient=listing.author, verb=f"{request.user.username} donated ${amount} to your listing!")
+
         return JsonResponse({"Message": "Donation registered!"}, status=200)
 
     else:
@@ -303,6 +308,9 @@ def comment(request):
         )
         comment.save()
 
+        # Notify recipient
+        notify.send(sender=request.user, recipient=listing.author, verb=f"{request.user.username} commented on your listing!")
+
         return JsonResponse({"message": "Comment added",
                              "imgsource": request.user.photo.url,
                              "username": request.user.username,
@@ -331,5 +339,21 @@ def removecomment (request):
             raise Exception("Comment not found...")
 
         return JsonResponse({"Message": "Comment removed"}, status=200)
+    else:
+        raise Exception("Wrong request method")
+
+
+def readnoti (request):
+
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        id = data["notification_id"]
+
+        try:
+            request.user.notifications.get(pk=id).mark_as_read()
+        except:
+            raise Exception("Notification not found...")
+
+        return JsonResponse({"message": "Notification read"}, status=200)
     else:
         raise Exception("Wrong request method")

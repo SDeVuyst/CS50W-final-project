@@ -1,7 +1,7 @@
-
 from django.urls import path
-
+import notifications.urls
 from . import views
+from django.conf.urls import include, url
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -17,4 +17,8 @@ urlpatterns = [
     path("donate", views.donate, name="donate"),
     path('comment', views.comment, name="comment"),
     path('removecomment', views.removecomment, name="removecomment"),
+    # https://github.com/django-notifications/django-notifications
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('readnoti', views.readnoti, name="readnoti"),
+
 ]
