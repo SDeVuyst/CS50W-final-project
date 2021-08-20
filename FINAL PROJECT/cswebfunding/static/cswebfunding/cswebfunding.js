@@ -421,7 +421,7 @@ function updatenotifications(data) {
         var verb = data.unread_list[i].verb
 
         var li = document.createElement('li');
-        li.setAttribute('class', 'notificationitem lead');
+        li.setAttribute('class', 'notificationitem lead dropdown-large');
         li.setAttribute('id', data.unread_list[i].id);
 
         var img = document.createElement('img');

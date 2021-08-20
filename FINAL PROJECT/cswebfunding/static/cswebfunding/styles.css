@@ -1,4 +1,5 @@
 body {
+  position: relative;
   margin: 10px;
   background: #C9D6FF;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
@@ -11,6 +12,12 @@ a {
 
 nav {
   margin-bottom: 10px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .commentsubmitbutton {
@@ -233,14 +240,62 @@ nav {
   display: inline-block
 }
 
-.dropdown-large {
-  width: 300px;
+.dropdown-animation {
+  transform: translateY(-20%);
 }
+
+.dropdown-large {
+  width: 285px;
+}
+
+.dropdown-animation.show {
+  animation: slide-in 0.4s forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
 
 .badge {
   padding: 7px;
   padding-right: 9px;
   padding-left: 16px;
+}
+
+.indexbutton {
+  -moz-animation: shakeme 3s infinite;
+  -o-animation: shakeme 3s infinite;    
+  -webkit-animation: shakeme 3s infinite;
+  animation: shakeme 3s infinite;
+  animation-delay: 3s;
+}
+
+@keyframes shakeme {
+  0% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(0.8);
+  }
+  10% {
+    transform: scale(1.4);
+  }
+  15% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(1.2);
+  }
+  30% {
+    transform: scale(1.1);
+  }
 }
 
 #notificationcount {
