@@ -126,10 +126,11 @@ function addfunds () {
                 modal.hide()
 
                 // Asynchronously add balance for user
-                var balanceHTML = document.getElementById("balance");
+                var balanceHTML = document.getElementById("balanceamount");
                 var balance = parseFloat(balanceHTML.innerHTML.replace('$', '').replace('Current balance: ', ''));
+                console.log(`balance: ${balance}`)
                 var newbal = balance + amount;
-                balanceHTML.innerHTML = `$${newbal}`;
+                balanceHTML.innerHTML = newbal;
             })
         }
 
