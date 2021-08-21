@@ -17,6 +17,7 @@ urlpatterns = [
     path("donate", views.donate, name="donate"),
     path('comment', views.comment, name="comment"),
     path('removecomment', views.removecomment, name="removecomment"),
+    path('closelisting', views.closelisting, name="closelisting"),
     # https://github.com/django-notifications/django-notifications
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
     path('readnoti', views.readnoti, name="readnoti"),

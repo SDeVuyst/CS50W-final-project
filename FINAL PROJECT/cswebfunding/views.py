@@ -143,10 +143,14 @@ def listingfunc(request, id):
     # Get all comments on that listing
     comments = Comment.objects.filter(listing=listing).order_by('-id')
 
-    return render(request, "cswebfunding/listing.html", {
-        "listing": listing,
-        "comments": comments
-    })
+    # Listing cannot be closed
+    if listing.closed == True:
+        raise Exception("Listing is closed")
+    else:
+        return render(request, "cswebfunding/listing.html", {
+            "listing": listing,
+            "comments": comments
+        })
 
 
 def profile(request, id):
@@ -169,67 +173,71 @@ def listings(request, filter):
 
     # I hate the next 50 lines of code 
     if filter == 'goodcauses':
-        listings = Listing.objects.filter(goodcause=1).order_by('-id')
+        listings = Listing.objects.filter(goodcause=1).filter(closed=0).order_by('-id')
         title = "Good Causes"
 
     elif filter == 'projects':
-        listings = Listing.objects.filter(project=1).order_by('-id')
+        listings = Listing.objects.filter(project=1).filter(closed=0).order_by('-id')
         title = "Projects"
 
+    elif filter == 'all':
+        listings = Listing.objects.all().order_by('-id')
+        title = "All Listings"
+
     elif filter == 'latest':
-        listings = Listing.objects.all().order_by('id')
+        listings = Listing.objects.filter(closed=0).order_by('id')
         title = "Oldest Listings"
 
     elif filter == 'newest':
-        listings = Listing.objects.all().order_by('-id')
+        listings = Listing.objects.filter(closed=0).order_by('-id')
         title = "Newest Listings"
 
     elif filter == 'highest':
-        listings = Listing.objects.all().order_by('-goal')
+        listings = Listing.objects.filter(closed=0).order_by('-goal')
         title = "Listings With Highest Goal"
 
     elif filter == 'lowest':
-        listings = Listing.objects.all().order_by('goal')
+        listings = Listing.objects.filter(closed=0).order_by('goal')
         title = "Listings With Lowest Goal"
 
     elif filter == 'art':
-        listings = Listing.objects.filter(category=1).order_by('-id')
+        listings = Listing.objects.filter(category=1).filter(closed=0).order_by('-id')
         title = "Art Listings"
 
     elif filter == 'comics-and-illustration':
-        listings = Listing.objects.filter(category=2).order_by('-id')
+        listings = Listing.objects.filter(category=2).filter(closed=0).order_by('-id')
         title = "Comics And Illustration listings"
     
     elif filter == 'design-and-tech':
-        listings = Listing.objects.filter(category=3).order_by('-id')
+        listings = Listing.objects.filter(category=3).filter(closed=0).order_by('-id')
         title = "Design And Tech Listings"
         
     elif filter == 'film':
-        listings = Listing.objects.filter(category=4).order_by('-id')
+        listings = Listing.objects.filter(category=4).filter(closed=0).order_by('-id')
         title = "Film Listings"
         
     elif filter == 'food-and-craft':
-        listings = Listing.objects.filter(category=5).order_by('-id')
+        listings = Listing.objects.filter(category=5).filter(closed=0).order_by('-id')
         title = "Food And Craft Listings"
         
     elif filter == 'games':
-        listings = Listing.objects.filter(category=6).order_by('-id')
+        listings = Listing.objects.filter(category=6).filter(closed=0).order_by('-id')
         title = "Games Listings"
         
     elif filter == 'music':
-        listings = Listing.objects.filter(category=7).order_by('-id')
+        listings = Listing.objects.filter(category=7).filter(closed=0).order_by('-id')
         title = "Music Listings"
         
     elif filter == 'publishing':
-        listings = Listing.objects.filter(category=8).order_by('-id')
+        listings = Listing.objects.filter(category=8).filter(closed=0).order_by('-id')
         title = "Publishing Listings"
     
     elif filter == 'other':
-        listings = Listing.objects.filter(category=9).order_by('-id')
+        listings = Listing.objects.filter(category=9).filter(closed=0).order_by('-id')
         title = "Other Listings"
     
     elif filter =='popularity':
-        listings = Listing.objects.all().order_by('popularity')
+        listings = Listing.objects.filter(closed=0).order_by('popularity')
         title = "Popularity"
     
     elif filter == 'search':
@@ -373,3 +381,24 @@ def readnoti (request):
         return JsonResponse({"message": "Notification read"}, status=200)
     else:
         raise Exception("Wrong request method")
+
+
+def closelisting (request):
+
+    if request.method == 'POST':
+
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            listingid = data["listingid"]
+
+            listing = Listing.objects.get(id=listingid)
+            listing.closed = True
+            listing.save()
+
+            print(listingid)
+
+        except:
+            raise Exception("Something wrent wrong... Try again later.")
+        return JsonResponse({"message": "Listing closed"}, status=200)
+    else:
+        raise Exception('Wrong request method')

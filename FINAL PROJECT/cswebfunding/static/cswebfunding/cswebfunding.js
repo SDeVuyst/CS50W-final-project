@@ -496,3 +496,26 @@ function readnoti (id) {
 
     })
 };
+
+function closelisting (id) {
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let data = {
+        listingid : id
+    }
+
+    fetch(`/closelisting`, {
+        method: 'post',
+        headers: {'X-CSRFToken': csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(message => {
+        console.log(message.message);
+
+        // Close modal 
+        var modal = bootstrap.Modal.getInstance(ConfirmModal)
+        modal.hide()
+        
+    })
+};

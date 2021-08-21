@@ -49,6 +49,9 @@ footer {
   align-content: left;
 }
 
+.navbar {
+  padding-top: 0;
+}
 .navbar-brand {
   margin-right: 65px;
 }
@@ -530,4 +533,8 @@ footer {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+#overlay {
+  background-color: grey; /* Black background with opacity */
 }

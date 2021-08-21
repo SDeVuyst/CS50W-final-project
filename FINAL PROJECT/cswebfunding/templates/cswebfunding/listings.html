@@ -48,8 +48,10 @@
       
       {% for listing in listings.object_list %}
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+          {% if listing.closed == 0 %}
           <a class="notunderline" {% if user.is_authenticated %} href="{% url 'listing' id=listing.id %}" {% else %} data-bs-toggle="modal" data-bs-target="#AuthenticateModal" {% endif %}>
-            <div class="card shadow center">
+          {% endif %}
+            <div class="card shadow center"{% if listing.closed == 1 %} id="overlay" {% endif %}>
                 <div class="card-body text-center">
                   <h4>{{ listing.title }}</h4>
                   <div class="imageitem">
@@ -58,7 +60,11 @@
                       <img id="output" class="card-img-top" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
                   </div>
                   <ul class="list-inline mt-3">
-                      <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>
+                    {% if listing.closed == 0 %}
+                      <li class="list-inline-item"><i class="far fa-clock"></i> {{ listing.created_at }} - {{ listing.final_date }}</li>
+                    {% else %}
+                    <li class="list-inline-item"><h5 class="text-danger font-weight-bold">CLOSED</h5></li>
+                    {% endif %}
                   </ul>
                   <hr>
                   <p>${{listing.donated}} donated - ${{ listing.goal }} requested</p>
@@ -67,7 +73,9 @@
                   <button class="btn btn-outline-dark my-2">Read more...</button>
                 </div>
             </div>
+          {% if listing.closed == 0 %}
           </a>
+          {% endif %}
         </div>
       {% endfor %}
     </div>

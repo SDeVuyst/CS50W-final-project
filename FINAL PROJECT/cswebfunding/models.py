@@ -28,6 +28,7 @@ class Listing(models.Model):
    final_date = models.DateField()
    photo = models.ImageField(upload_to='media/', default="default-listing.jpg")
    popularity = models.IntegerField(default=0)
+   closed = models.BooleanField(default=0)
 
    def get_percentage(self):
         perc = self.donated * 100 / self.goal

@@ -44,7 +44,7 @@
                                 Listings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'listings' filter='newest' %}">All listings</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listings' filter='all' %}">All listings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'listings' filter='goodcauses' %}">Good Causes</a></li>
                                 <li><a class="dropdown-item" href="{% url 'listings' filter='projects' %}">Projects</a></li>
@@ -82,7 +82,6 @@
                             </ul>
                         </div>
                     </span>
-                    <!-- TODO: search for listings -->
                     <span class="navbar-text" id="balance">
                         Current balance: $<span id="balanceamount">{{ user.balance }}</span>
                     </span>
@@ -96,7 +95,7 @@
                             <a class="nav-link active underline" href="{% url 'register' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active underline" href="{% url 'listings' filter='latest' %}">Listings</a>
+                            <a class="nav-link active underline" href="{% url 'listings' filter='all' %}">Listings</a>
                         </li>
                     </ul>
                     {% endif %}

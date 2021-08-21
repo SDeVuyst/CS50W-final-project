@@ -45,8 +45,14 @@
            
         </div>
         <hr>
+
+        <!-- Button to confirm user wants to close listing -->
+        {% if user == listing.author %}
+        <a class="btn btn-outline-danger my-2" role="button" data-bs-toggle="modal" data-bs-target="#ConfirmModal">Close listing</a>
+        {% endif %}
+        
         <!-- Button that opens up modal to donate -->
-        <a class="btn btn-outline-dark my-2" href="#" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
+        <a class="btn btn-outline-dark my-2" role="button" data-bs-toggle="modal" data-bs-target="#DonateModal">Donate</a>
 
         <hr>
         <!-- Create Comment -->
@@ -96,43 +102,70 @@
                 </div>
             </div>
         </div>
+
     <!-- Modal to donate -->
     <div class="modal fade" id="DonateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-            <h5 class="modal-title" id="donateModalLabel">Donate to {{ listing.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-    
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <div>
-                    <h6>Your current balance is ${{ user.balance }}</h6>
-                    <hr>
-                </div>  
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input name="donateamount" id="donateamount" type="number" class="form-control" autocomplete="off" aria-label="Amount" min="1" max="{{ user.balance }}">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h5 class="modal-title" id="donateModalLabel">Donate to {{ listing.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-    
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <input onclick="donate({{ listing.id }})" type="submit" class="btn btn-outline-dark my-2" value="Donate">
+        
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div>
+                        <h6>Your current balance is ${{ user.balance }}</h6>
+                        <hr>
+                    </div>  
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input name="donateamount" id="donateamount" type="number" class="form-control" autocomplete="off" aria-label="Amount" min="1" max="{{ user.balance }}">
+                    </div>
+                </div>
+        
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <input onclick="donate({{ listing.id }})" type="submit" class="btn btn-outline-dark my-2" value="Donate">
 
             </div>
-    
         </div>
     </div>
+
+    
 
 {% else %}
     <!-- No listing was found -->
     <h3 class="center">Error! The listing you were trying to get does not exist!</h3>
 
 {% endif %}
+</div>
+
+<!-- Modal to donate -->
+<div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">Confirm</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+    
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <h6>Are you sure you want to close your listing?</h6>
+            </div>
+    
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <input onclick="closelisting({{ listing.id }})" type="submit" class="btn btn-outline-danger my-2" value="Yes, I confirm">
+
+        </div>
+    </div>
 </div>
 {% endblock %}
