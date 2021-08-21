@@ -45,9 +45,10 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
 2. Set up local server (make sure you are in the FINAL PROJECT directory!)
-   ```sh
-   py manage.py runserver
-   ```
+
+    ```sh
+    py manage.py runserver
+    ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -98,6 +99,8 @@ The listing page displays:
 * Other comments
 
 You can delete your comment by pressing the delete button underneath the comment.
+
+If you are the author of the listing, and wish to close it prematurely, you can do that by pressing the 'Close Listing' button. Otherwise the listing will automatically close when the enddate is reached.
 
 ### Viewing accounts
 You can view an account by pressing the 'About the Author' section on a listing or by clicking on a comment. 
