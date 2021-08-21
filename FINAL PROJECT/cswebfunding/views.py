@@ -13,6 +13,7 @@ import json
 
 from .models import User, Listing, Donation, Comment
 
+# TODO close listing if end date is reached + send notification!!
 
 def index(request):
     return render(request, "cswebfunding/index.html")
@@ -395,10 +396,11 @@ def closelisting (request):
             listing.closed = True
             listing.save()
 
-            print(listingid)
+            notify.send(sender=request.user, recipient=request.user, verb=f"Your listing '{listing.title} was closed.", authorurl=request.user.photo.url)
 
         except:
             raise Exception("Something wrent wrong... Try again later.")
+
         return JsonResponse({"message": "Listing closed"}, status=200)
     else:
         raise Exception('Wrong request method')
