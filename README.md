@@ -20,7 +20,7 @@ I have also tried my best to make this a 'fun' site by adding various animations
 The project was built using Django as a backend framework and JavaScript as a frontend programming language. All generated information are saved in a SQLite Database.
 All webpages of the project are mobile-responsive.
 
-(note. If you interpret this as a social network. It is not, and I have asked this in the cs5O discord to be sure!)
+(note. If you interpret this as a social network. I have asked this in the CS5O discord to be sure, and they reassured me it's not!)
 
 <!-- GETTING STARTED -->
 ## Getting Started
