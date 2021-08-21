@@ -42,17 +42,18 @@ To get a local copy up and running follow these simple steps.
   ```
   
  * timeloop
-  ```sh
-  pip install timeloop
-  ```
+   ```sh
+   pip install timeloop
+   ```
 
 ### Installation
 
 1. Clone the repo
 2. Set up local server (make sure you are in the FINAL PROJECT directory!)
-   ```sh
-   py manage.py runserver
-   ```
+
+    ```sh
+    py manage.py runserver
+    ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
