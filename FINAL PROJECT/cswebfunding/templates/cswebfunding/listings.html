@@ -99,32 +99,7 @@
 
   {% endif %}
 
-  <!-- Modal to authenticate User -->
-  <div class="modal fade" id="AuthenticateModal" tabindex="-1" aria-labelledby="AuthenticateModal" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-        <h5 class="modal-title" id="fundsModalLabel">Log in or Register</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <a type="button" class="btn btn-outline-dark my-2" href="{% url 'login' %}">Login</a>
-          <a type="button" class="btn btn-outline-dark my-2" href="{% url 'register' %}">Register</a>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        
-        </div>
-
-    </div>
-    </div>
-</div>
+  
 
 {% else %} 
 <br><br><br>

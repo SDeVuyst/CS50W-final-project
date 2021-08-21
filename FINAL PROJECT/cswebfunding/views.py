@@ -151,10 +151,17 @@ def listingfunc(request, id):
 
 def profile(request, id):
 
+    try:
+        profile = User.objects.get(id=id)
+        listings = Listing.objects.filter(author=profile).order_by('-id')
+        comments = Comment.objects.filter(user=profile).order_by('-id')[:3]
+    except:
+        raise Exception("Something went wrong... Try again later")
 
-    profile = User.objects.get(id=id)
     return render(request, "cswebfunding/profile.html", {
-        "profile": profile
+        "profile": profile,
+        "listings": listings,
+        "comments": comments,
     })
 
 
@@ -224,6 +231,15 @@ def listings(request, filter):
     elif filter =='popularity':
         listings = Listing.objects.all().order_by('popularity')
         title = "Popularity"
+    
+    elif filter == 'search':
+        try:
+            filter = request.POST['search']
+        except:
+            raise Exception('No searchbar found')
+
+        listings = Listing.objects.filter(title__contains=filter)
+        title = f"Search results for: {filter}"
         
     else: 
         return render(request, "cswebfunding/index.html")

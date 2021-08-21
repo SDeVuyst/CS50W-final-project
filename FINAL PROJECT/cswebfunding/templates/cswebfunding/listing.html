@@ -13,11 +13,11 @@
             </div>
             <!-- Listing description -->
             <div class="col-sm-4 center">
-                {{ listing.description}}
+                <span class="lead">{{ listing.description}}
             </div>
             <!-- About the author section -->
             <div class="col-sm-4 center ">
-                <p class="lead">ABOUT THE AUTHOR</p>
+                <p class="lead bold">ABOUT THE AUTHOR</p>
                 <h5>{{ listing.author.username }}</h5>
                 <a href="{% url 'profile' id=listing.author.id %}">
                     <img id="image" class="card-img-top round_image" src="{{ listing.author.photo.url }}" alt="author image of {{ listing.author.username }}">
@@ -36,7 +36,7 @@
                     {% endif %}
                 </div>
                 {% if not listing.donated %}
-                <span class="lead center">$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
+                <span class="lead center" id="progresslabel">$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>
                 {% endif %}
                 {% if listing.get_percentage < 20 and listing.donated != 0 %}
                 <span class="lead center">$<span id="progressamount">{{ listing.donated }}</span> of ${{ listing.goal }} collected</span>

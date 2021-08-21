@@ -2,8 +2,55 @@
 
 {% block body %}
 <div class="pageload">
-    <h4 class="center">Profile of {{ profile.username }} </h4>
-    <img id="image" class="card-img-top square_image" src="{{ profile.photo.url }}" alt="main image of {{ profile.title }}">
-    <p>{{ user.about_me }}</p>
+    <h2 class="center">Profile of {{ profile.username }} </h2>
+    <div class="row">
+        <div class="col center col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+            <img id="image" class="round_image profilepicture" src="{{ profile.photo.url }}" alt="main image of {{ profile.title }}">
+        </div>
+        <div class="col center col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+            <p class="profileaboutme lead">{{ user.about_me }}</p>
+        </div>
+        <div class="col center col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+            <p class="center lead bold">Last 3 comments</p>
+            {% for comment in comments %}
+            <a class="notunderline" href="{% url 'listing' id=comment.listing.id %}">
+            <div class="card p-3 mt-2 me-5" id="comment{{ comment.id }}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="user d-flex flex-row align-items-center"> <img src="{{ comment.user.photo.url }}" width="50" class="user-img rounded-circle me-3"> <span><small class="lead text-primary">{{ comment.user.username }}</small> <small class="lead">{{ comment.content }}</small></span> </div> <small>{{ comment.date }}</small>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <div class="container mb-4 center">
+        <div class="row">
+            <h3 class="center">Users listings</h3>
+          {% for listing in listings %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4">
+              <a class="notunderline" {% if user.is_authenticated %} href="{% url 'listing' id=listing.id %}" {% else %} data-bs-toggle="modal" data-bs-target="#AuthenticateModal" {% endif %}>
+                <div class="card shadow center">
+                    <div class="card-body text-center">
+                      <h4>{{ listing.title }}</h4>
+                      <div class="imageitem">
+                        <!-- User can only click link if logged in -->
+                          <img id="output" class="card-img-top" src="{{ listing.photo.url }}" alt="main image of {{ listing.title }}">
+                      </div>
+                      <ul class="list-inline mt-3">
+                          <li class="list-inline-item"><i class="far fa-clock"></i>{{ listing.created_at }} - {{ listing.final_date }}</li>
+                      </ul>
+                      <hr>
+                      <p>${{listing.donated}} donated - ${{ listing.goal }} requested</p>
+            
+                      <p class="lead">{{ listing.description }}</p>
+                      <button class="btn btn-outline-dark my-2">Read more...</button>
+                    </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

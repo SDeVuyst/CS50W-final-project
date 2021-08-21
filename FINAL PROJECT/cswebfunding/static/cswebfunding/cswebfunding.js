@@ -390,20 +390,27 @@ function donate (listingid) {
         document.getElementById("balanceamount").innerHTML -= donateamount;
 
         // add donation to progress bar
-        // TODO fix label if user donated 2 much, it doesnt get put inside of progressbar
-        // Change Label
-        var progressspanelement = document.getElementById("progressamount")
-        var currentamount = parseFloat(progressspanelement.innerHTML)
+        var progressspanelement = document.getElementById("progressamount");
+        var currentamount = parseFloat(progressspanelement.innerHTML);
 
-        const newamount = currentamount + parseFloat(donateamount)
-        progressspanelement.innerHTML = newamount
+        const newamount = currentamount + parseFloat(donateamount);
+    
         // Visual progressbar
-        progressbar = document.getElementById("progressbar")
-        progressbar.setAttribute("aria-valuenow", newamount)
-        maxamount = progressbar.getAttribute("aria-valuemax")
+        progressbar = document.getElementById("progressbar");
+        progressbar.setAttribute("aria-valuenow", newamount);
+        maxamount = progressbar.getAttribute("aria-valuemax");
         percentage = (100*newamount) / maxamount;
-        progressbar.setAttribute("style", `width: ${percentage | 0}%`)
+        progressbar.setAttribute("style", `width: ${percentage | 0}%`);
 
+        // Change label
+        if (percentage >= 20) {
+            var progresslabel = document.getElementById('progresslabel')
+            progressspanelement.innerHTML = newamount
+            document.getElementById('progressbar').appendChild(progresslabel)
+            
+        } else {
+            progressspanelement.innerHTML = newamount
+        }
     })
 
 };
