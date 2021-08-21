@@ -1,0 +1,2 @@
+pip install django-notifications-hq  
+pip install Django
