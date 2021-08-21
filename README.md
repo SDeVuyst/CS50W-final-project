@@ -14,10 +14,13 @@ The idea comes from a kickstarter-like website, but with my own touch and execut
   * [Bootstrap](https://getbootstrap.com/)
 
 ### Distinctiveness and Complexity
+In Cswebfunding you can create listings, donate and comment to listings and much more. You can also search for listings and view other peoples profiles.
+I have also tried my best to make this a 'fun' site by adding various animations.
+
+The project was built using Django as a backend framework and JavaScript as a frontend programming language. All generated information are saved in a SQLite Database.
+All webpages of the project are mobile-responsive.
+
 (note. If you interpret this as a social network. It is not, and I have asked this in the cs5O discord to be sure!)
-I have spent about a month going through different designs and ideas to work out this website.
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -47,5 +50,18 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Index
+
+### Creating an account
+
+### Creating a listing
+
+### Viewing listings
+Listings are limited to 9 listings per page
+
+### Viewing accounts
+
+### Admin Page
+
+
 
