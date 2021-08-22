@@ -42,7 +42,8 @@ All web pages of the project are mobile-responsive.
   * `models.py` - contains the User, Listing, Comment and Donation model
   * `urls.py` - contains all the URLs
   * `views.py` - backend of the application, contains multiple functions so everything is updated in the db and the right responses are returned to user
-* `media` - contains default image for user and listing, also contains user uploaded images
+* `media` - contains default images for user, listing and the index picture
+  * `media`- contains user uploaded images
 
 <!-- GETTING STARTED -->
 ## Getting Started
