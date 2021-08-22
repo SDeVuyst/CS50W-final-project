@@ -4,7 +4,7 @@
 Cswebfunding is a site where you can support other people's dreams or have your own dream realized.  
 The idea comes from a Kickstarter-like website, but with my touch and execution.
 
-### Built With
+## Built With
 
 - Python
   * [Django](https://www.djangoproject.com/)
@@ -13,7 +13,7 @@ The idea comes from a Kickstarter-like website, but with my touch and execution.
 - HTML & CSS
   * [Bootstrap](https://getbootstrap.com/)
 
-### Distinctiveness and Complexity
+## Distinctiveness and Complexity
 
 In Cswebfunding you can create listings, donate and comment to listings and much more. You can also search for listings and view other people's profiles. You will get notifications if someone commented, donated on/to your listing, or if your listing has been closed.
 
@@ -23,6 +23,26 @@ The project was built using Django as a backend framework and JavaScript as a fr
 All web pages of the project are mobile-responsive.
 
 (note. If you interpret this as a social network. I have asked this in the CS50 discord to be sure, and they reassured me it's not!)
+
+## What is in each file
+* `cswebfunding`
+  * `static`
+    * `cswebfunding.js` - contains all javascript functions, using fetch to eg. donate etc. and asynchronously update DOM
+    * `styles.css` - contains all css stles
+  * `templates`
+    * `index.html` - index page that displays basic info
+    * `layout.html` - base template that all other HTML-files use, includes navbar
+    * `listing.html` - shows info about a specific listing
+    * `listings.html` - shows cards that display different listings, can be sorted/filtered
+    * `login.html` -  login page
+    * `newlisting.html` - page to create new listing
+    * `profile.html` - shows info about specific user
+    * `register.html` - page to register
+  * `admin.py` - makes sure that User, Listing, Comment and Donation can be viewed in /admin
+  * `models.py` - contains the User, Listing, Comment and Donation model
+  * `urls.py` - contains all the URLs
+  * `views.py` - backend of the application, contains multiple functions so everything is updated in the db and the right responses are returned to user
+* `media` - contains default image for user and listing, also contains user uploaded images
 
 <!-- GETTING STARTED -->
 ## Getting Started
