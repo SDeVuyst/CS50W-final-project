@@ -13,7 +13,6 @@ import json
 
 from .models import User, Listing, Donation, Comment
 
-# TODO close listing if end date is reached + send notification!!
 
 def index(request):
     return render(request, "cswebfunding/index.html")
