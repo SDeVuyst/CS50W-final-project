@@ -15,7 +15,7 @@ The idea comes from a kickstarter-like website, but with my own touch and execut
 
 ### Distinctiveness and Complexity
 
-In Cswebfunding you can create listings, donate and comment to listings and much more. You can also search for listings and view other peoples profiles. You will get notifications if someone commented or donated on/to your listing.
+In Cswebfunding you can create listings, donate and comment to listings and much more. You can also search for listings and view other peoples profiles. You will get notifications if someone commented, donated on/to your listing or if your listing has been closd.
 
 I have also tried my best to make this a 'fun' site by adding various animations.
 
