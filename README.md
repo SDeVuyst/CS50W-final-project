@@ -64,7 +64,21 @@ To get a local copy up and running follow these simple steps.
 ### Installation
 
 1. Clone the repo
-2. Set up a local server (make sure you are in the FINAL PROJECT directory!)
+
+2. Run migrations to create a database (make sure you are in the FINAL PROJECT directory!)
+    ```sh
+    py manage.py makemigrations
+    ```
+    ```sh
+    py manage.py migrate
+    ```
+    
+3. [Optional] Create admin account
+    ```sh
+     py manage.py createsuperuser
+     ```
+     
+5. Set up a local server
 
     ```sh
     py manage.py runserver
