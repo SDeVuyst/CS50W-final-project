@@ -68,7 +68,7 @@ To get a local copy up and running follow these simple steps.
 
 2. Run migrations to create a database (make sure you are in the FINAL PROJECT directory!)
     ```sh
-    py manage.py makemigrations
+    py manage.py makemigrations cswebfunding
     ```
     ```sh
     py manage.py migrate
