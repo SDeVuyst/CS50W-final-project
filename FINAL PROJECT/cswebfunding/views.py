@@ -134,6 +134,12 @@ def listingfunc(request, id):
 
     try:
         listing = Listing.objects.get(id=id)
+        print(listing.check_final_date())
+
+        # Listing cannot be closed
+        if listing.closed == True:
+            raise Exception("Listing is closed")
+
     except ObjectDoesNotExist:
         raise Exception('Listing does not exist')
 
@@ -144,14 +150,11 @@ def listingfunc(request, id):
     # Get all comments on that listing
     comments = Comment.objects.filter(listing=listing).order_by('-id')
 
-    # Listing cannot be closed
-    if listing.closed == True:
-        raise Exception("Listing is closed")
-    else:
-        return render(request, "cswebfunding/listing.html", {
-            "listing": listing,
-            "comments": comments
-        })
+    
+    return render(request, "cswebfunding/listing.html", {
+        "listing": listing,
+        "comments": comments
+    })
 
 
 def profile(request, id):
@@ -404,3 +407,4 @@ def closelisting (request):
         return JsonResponse({"message": "Listing closed"}, status=200)
     else:
         raise Exception('Wrong request method')
+

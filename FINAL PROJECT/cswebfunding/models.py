@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 
+from notifications.signals import notify
 
 class User(AbstractUser):
    id = models.BigAutoField(primary_key=True)
@@ -34,9 +36,20 @@ class Listing(models.Model):
         perc = self.donated * 100 / self.goal
         return perc
 
+   def check_final_date(self):
+      if self.final_date < timezone.now().date():
+         self.closed = 1
+         self.save()
+
+         # Send notification to user that their listing closed
+         notify.send(sender=self.author, recipient=self.author, verb=f"Your listing '{self.title}' was closed because the final date has been reached.", authorurl=self.author.photo.url)
+
+         return('closed')
+      else:
+         return ('not closed')
+   
    def __str__(self):
       return f'{self.title}({self.id})'
-   
 
    
 class Donation(models.Model):
