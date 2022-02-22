@@ -4,6 +4,7 @@
 Cswebfunding is a site where you can support other people's dreams or have your own dream realized.  
 The idea comes from a Kickstarter-like website, but with my touch and execution.
 
+[![Video Demo](http://img.youtube.com/vi/LhwgGsaPAlc/0.jpg)](http://www.youtube.com/watch?v=LhwgGsaPAlc)
 [Video Demo](https://youtu.be/LhwgGsaPAlc)
 
 ## Built With
